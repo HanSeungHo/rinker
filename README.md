@@ -6,7 +6,7 @@ Rinker
 
 NodeJS v0.8.12 기준으로 제작
 
-    git clone https://github.com/nforge/devnote.git
+    git clone https://github.com/HanSeungHo/rinker.git
     cd rinker
     npm install
 
