@@ -46,5 +46,5 @@ logo += '          OO    OOO OO~  OO   OO.  OO   OO   OOOO    OO              \n
 logo += '=====================================================================\n\n'
 
 http.createServer(app).listen(app.get('port'), function(){
-  console.log(logo,"Express server listening on port ", app.get('port'));
+  console.log(logo,"Rinker server listening on port ", app.get('port'));
 });
