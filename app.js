@@ -5,6 +5,7 @@
 
 var express = require('express')
   , routes = require('./routes')
+  , search = require('./routes/search')
   , user = require('./routes/user')
   , http = require('http')
   , path = require('path');
@@ -28,6 +29,8 @@ app.configure('development', function(){
 });
 
 app.get('/', routes.index);
+app.get('/search', search.query);
+
 app.get('/users', user.list);
 
 var logo = '\n\n';
