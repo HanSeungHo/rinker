@@ -1,15 +1,4 @@
-extends layout
-
-block content
-	#contentwrapper
-		.main_content
-			.row-fluid
-				h1
-					img(src="img/rinker.png",style='max-width:700px', alt=title)
-				p
-					a.btn(href="/search?q=") 전체 보기  
-					a.btn(href="/search?q=이동건") 이동건 검색결과  
-					a.btn(href="http://hanseungho.github.com/rinker/") Github  
+blcok sidebar
 	a.sidebar_switch.on_switch.ttip_r(href='javascript:void(0)', title='Hide Sidebar') Sidebar switch
 	.sidebar
 		.antiScroll
@@ -21,9 +10,7 @@ block content
 							button.btn(type='submit')
 								i.icon-search
 						form.input-append(action='/sql', method='get')
-							select(name='use',style='width:160px')
-								option entertainer
-								option	repository	
+							input.search_query.input-medium(autocomplete='off', name='use', size='16', type='text', placeholder='DATA')
 							input.search_query.input-medium(autocomplete='off', name='sql', size='16', type='text', placeholder='SQL QUERY')
 							button.btn(type='submit')
 								i.icon-search	
@@ -161,4 +148,4 @@ block content
 								strong New articles
 							li
 								span.act.act-danger 85
-								strong New registrations									
+								strong New registrations			
