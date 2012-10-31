@@ -10,7 +10,7 @@ exports.query = function(req, res){
 	var db = mysql.createConnection(config.mysql);
 
 
-	db.query('USE repository', function(err, rows) {
+	db.query('USE ' + config.people_db, function(err, rows) {
 		if(err){
 			console.log("DB fail: ", err);
 			db.end();
@@ -18,7 +18,7 @@ exports.query = function(req, res){
 		}
 	});
 
-	var result = db.query("SELECT * FROM `nate_people` WHERE `name` LIKE  '%"+ q +"%'", function(err, rows) {
+	var result = db.query("SELECT * FROM `" + config.people_table + "` WHERE `name` LIKE  '%" + q + "%'", function(err, rows) {
 		
 		if(err){
 			console.log("DB fail: ", err);

@@ -6,3 +6,6 @@ exports.mysql = {
 };
 
 exports.test = '테스트';
+
+exports.people_db = 'repository';
+exports.people_table = 'nate_people';
