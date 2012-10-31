@@ -4,13 +4,10 @@ block content
 	#contentwrapper
 		.main_content
 			.row-fluid
-				h1
-					img(src="img/rinker.png",style='max-width:700px', alt=title)
-				p
-					a.btn(href="/search?q=") 전체 보기  
-					a.btn(href="/search?q=이동건") 이동건 검색결과  
-					a.btn(href="http://hanseungho.github.com/rinker/") Github  
-
+				.error_box
+					h1 #{title}
+					p #{error}
+					a.back_link.btn.btn-small(herf="javascript:history.back()") Go back 
 	a.sidebar_switch.on_switch.ttip_r(href='javascript:void(0)', title='Hide Sidebar') Sidebar switch
 	.sidebar
 		.antiScroll
@@ -162,4 +159,4 @@ block content
 								strong New articles
 							li
 								span.act.act-danger 85
-								strong New registrations									
+								strong New registrations											

@@ -30,6 +30,9 @@ app.configure('development', function(){
 
 app.get('/', routes.index);
 app.get('/search', search.query);
+app.get('/sql', search.sql);
+app.get('/error', search.error);
+
 
 app.get('/users', user.list);
 
