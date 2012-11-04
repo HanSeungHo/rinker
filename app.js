@@ -36,7 +36,7 @@ app.get('/error', search.error);
 
 app.get('/users', user.list);
 
-var logo = '\n\n';
+var logo = '\n';
 logo += '=====================================================================\n\n'
 logo += '          OOOOOO,   OO~            OO                                \n'
 logo += '          OO   OOO  OO~            OO                                \n'

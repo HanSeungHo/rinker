@@ -53,8 +53,7 @@ var obj = new Object();
 
 function GetList(page){
   console.log(page);
-
-  console.log
+  
   request({
     uri: 'http://people.nate.com/dir_job.html?c='+category+'&s=PD&p='+page,
     encoding: 'binary'

@@ -22,9 +22,19 @@ var mysqlUtil = module.exports = {
       );
     }, 
     sql: function(use, sql, res) {
-      client.query('USE ' + use);
+      // if((typeof sql != 'string')){
+      //   unescape(sql.replace(/\+/g, " "))
+      // }
+      client.query('USE ' + use, 
+        function(err){
+          if (err) {
+            res.render('error', { title: 'DATABASE ERROR', error: err });
+            return; 
+          }
+        }
+      );
       client.query(
-          unescape(sql.replace(/\+/g, " "))
+          sql
           , function(err, rows, fields) {
             if (err) {
               res.render('error', { title: 'SQL QUERY ERROR', error: err });

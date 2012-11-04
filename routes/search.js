@@ -1,6 +1,5 @@
 var config = require('../config'),
-		db = require('../db'),
-		mysql = require('mysql');
+		db = require('../db');
 /*
  * GET home page.
  */
@@ -12,7 +11,6 @@ exports.query = function(req, res){
 	var q = req.param('q');
 	db.search(q, res);
 };
-
 
 // route /sql:query
 exports.sql = function(req, res){
