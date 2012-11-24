@@ -1,0 +1,55 @@
+extends layouts/layout
+
+block content
+	#contentwrapper
+		.main_content
+			.row-fluid
+				h1 #{title}
+				p #{error} dddd
+
+				style(type='text/css')
+					html , body {
+					font: normal 0.9em arial , helvetica;
+					}
+				script(src='http://localhost:3001/socket.io/socket.io.js')
+				script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js')
+				script(type='text/javascript')
+					$(document).ready(function() {
+					var socket  = io.connect('http://localhost:3001');
+					$('#save').click(function() {
+					if ($('#employee_name').val() == '' || $('#employee_salary').val() == '') {
+					return alert('Please enter both name/salary!');
+					}
+					var data = {
+					name: $('#employee_name').val(),
+					salary: $('#employee_salary').val()
+					};
+					socket.emit('add employee', data);
+					$('#employee_name').val('');
+					$('#employee_salary').val('');
+					});
+					socket.on('populate', function(data) {
+					var out = "";
+					$.each(data, function(i, obj) {
+					out += "<li>"+obj.name+" is making "+obj.salary+"</li>";
+					});
+					$('#employees').html(out);
+					});
+					});
+
+				b Create new employee
+				div
+					| Name:
+					input#employee_name(type='text', value='')
+				div
+					| Salary:
+					input#employee_salary(type='text', value='')
+				div
+					input#save(type='button', value='Save')
+				br
+				b List of Employees:
+				ul#employees
+
+
+				a.back_link.btn.btn-small(herf="javascript:history.back()") Go back 
+	include includes/sidebar

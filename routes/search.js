@@ -18,3 +18,8 @@ exports.sql = function(req, res){
 	var sql = req.param('sql');
 	db.sql(use, sql, res);
 };
+
+// socket test
+exports.socket = function(req, res){
+	res.render('socket', { title: 'Socket Test', error: '에러' });
+};

@@ -1,9 +1,10 @@
 {
-  "name": "application-name",
-  "version": "0.0.1",
+  "name": "Rinker",
+  "version": "0.3.1",
   "private": true,
   "scripts": {
-    "start": "node app"
+    "start": "node app",
+    "stop": "node app"
   },
   "dependencies": {
     "express": "3.0.0rc5",
