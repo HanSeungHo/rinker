@@ -1,5 +1,3 @@
-// user.js
-// user.js
 // User model logic.
 
 var neo4j = require('neo4j');
@@ -85,6 +83,12 @@ User.prototype.del = function (callback) {
 
 User.prototype.follow = function (other, callback) {
     this._node.createRelationshipTo(other._node, 'follows', {}, function (err, rel) {
+        callback(err);
+    });
+};
+
+User.prototype.music = function (other, callback) {
+    this._node.createRelationshipTo(other._node, 'music', {}, function (err, rel) {
         callback(err);
     });
 };
