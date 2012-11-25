@@ -1,4 +1,4 @@
-extends layouts/layout
+extends layout/layout
 
 block content
 	#contentwrapper
@@ -9,8 +9,9 @@ block content
 				p
 					a.btn(href="/search?q=") 전체 보기  
 					a.btn(href="/socket") 소켓 테스트  
-					a.btn(href="/users") 그래프 테스트  
+					a.btn(href="/graph") 그래프 테스트
+					a.btn(href="/users") 인증 테스트  
 					a.btn(href="/search?q=") 트위터 테스트  															
 					a.btn(href="/search?q=이동건") 이동건 검색결과  
 					a.btn(href="http://hanseungho.github.com/rinker/") Github  
-	include includes/sidebar
+	include layout/sidebar

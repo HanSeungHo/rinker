@@ -1,4 +1,4 @@
-extends layouts/layout
+extends layout/layout
 
 block content
 	#contentwrapper
@@ -11,7 +11,7 @@ block content
 					ul.users
 						for user in users
 							li.user
-								a(href='/users/#{user.id}') #{user.name}
+								a(href='/graph/#{user.id}') #{user.name}
 				else
 					p There are no users currently.
 
@@ -19,3 +19,5 @@ block content
 					p Create a new user:
 					input(type='text', name='name', placeholder='Name', required)
 					input(type='submit', value='Create')
+				a.back_link.btn.btn-small(herf="javascript:history.back()") Go back 
+	include layout/sidebar
