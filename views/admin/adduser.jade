@@ -1,0 +1,31 @@
+extends adminLayout
+
+block prepend nav
+  selected = 'adduser'
+
+block content
+  form(method="post", action="/users/new").span9.form-horizontal
+    div.page-header
+      h1 'New user')
+
+    div.control-group
+      label(for="name").control-label 'User name')
+      div.controls
+        input(type="text", name="name", id="name", required)
+
+    div.control-group
+      label(for="id").control-label 'Id')
+      div.controls
+        input(type="text", name="id", id="id", required)
+
+    div.control-group
+      label(for="email").control-label 'Email')
+      div.controls
+        input(type="text", name="email", id="email", required)
+
+    div.control-group
+      label(for="password").control-label 'Password')
+      div.controls
+        input(type="password", name="password", id="password", placeholder="At least 4 characters in length.", required)
+
+    button(type="submit").btn.btn-primary: strong 'Save')

@@ -1,0 +1,76 @@
+!!!5
+html(lang="ko")
+  head
+    meta(charset="utf-8")
+    title= title
+    meta(name="viewport", content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1")
+    meta(http-equiv="X-UA-Compatible", content="IE=EmulateIE7")
+    link(rel='stylesheet', href='/stylesheets/syntax.css')
+    link(rel='stylesheet', href='/bootstrap/css/bootstrap.css')
+    link(rel='stylesheet', href='/bootstrap/css/bootstrap-responsive.css')
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/stylesheets/custom.css')
+    link(rel='stylesheet', href='/codemirror2/lib/codemirror.css')
+    //[if IE 9]><link rel="stylesheet" href="/stylesheets/custom.ie9.css"><![endif]
+    //[if lt IE 9]><script src="/scripts/html5.rwd.js"></script><![endif]
+
+  body
+    div.top
+    div.container
+      p.skip: a(href="#content") Skip to Content
+      // HEADER
+      header.nHead
+        block header
+          h1: a(href="/") 
+            img(src='/images/note-bi.png')
+          div.account
+            if user
+              span.author: a(href="#")= user.name
+            span.btn-group
+              if user
+                a(href="/wikis/#{encodeURIComponent(wikiName)}/users").btn.btn-small
+                  i.icon-cog
+                  = 'Administration'
+                form(method="post", action="/logout").inline
+                  input(type="hidden", name="_method", id='_method', value="post")
+                  button(type="submit").btn.btn-small
+                    i.icon-user
+                    = 'Logout'
+              else
+                a(href="/login").btn.btn-small
+                  i.icon-user
+                  = 'Login'
+              a(href="#", title="Feedback").btn.btn-small
+                i.icon-comment
+                = 'Feedback'
+              button(type="button").btn.tog.btn-small
+                i.icon-search
+                = 'Search'
+          form(action="/wikis/#{encodeURIComponent(wikiName)}/pages").search
+            input(type="hidden", name="action", value='search').btn
+            input(type="search", name="keyword", required).si
+            button(type="submit",title='Search').sb
+              i.icon-search
+
+      // /HEADER
+
+      section(id="content", tabindex="0").nBody
+        block section
+          block content
+
+      // FOOTER
+      footer.nFoot
+        block footer
+          p.nforge nforge
+          p.nhn 
+            a(href='http://nhn.com') © NHN Corp
+      // /FOOTER
+
+    block script
+      script(src='/scripts/yepnope.js')
+      script
+        yepnope({
+          test: (typeof jQuery !== 'undefined'),
+          yep: '/scripts/custom.js',
+          nope: ['/scripts/jquery.js', '/scripts/custom.js']
+        });

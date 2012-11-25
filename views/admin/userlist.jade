@@ -1,0 +1,35 @@
+extends ../layout/layout
+
+block prepend nav
+  selected = 'userlist'
+
+block content
+  div.span9.form-horizontal
+    div.page-header
+      h1 'User list'
+      p! 'Total <strong>%s</strong>', Object.keys(userlist).length)
+      a(href='/users/new').btn.btn-primary: strong 사용자 추가
+
+    table.table
+      thead
+        tr
+          th(scope="col"): input(type="checkbox").all
+          th(scope="col") Name
+          th(scope="col") Email
+          th(scope="col") Id
+          th(scope="col") #Salted Password
+          th(scope="col") &nbsp;
+      tbody
+        each user in userlist
+          tr
+            td: input(type="checkbox")
+            td= user.name
+            td= user.email
+            td: a(href='/user/#{user.id}')= user.id
+            td: span.pw= user.password
+            td
+              form(method="post", action="/dropuser").no-margin
+                input(name='id', type='hidden', value=user.id)
+                button(type="submit", name="submit").label.label-warning 삭제
+
+    div.ctrl: button(type="submit").btn.btn-danger: strong 전체 삭제
