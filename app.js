@@ -21,18 +21,16 @@ app.configure(function(){
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
   app.use(express.methodOverride());  
-  app.use(express.cookieParser('rinker session'));
+  app.use(express.cookieParser('Rinker session'));
   app.use(express.session());
   app.use(app.router);
   app.use(express.static(path.join(__dirname, 'public')));
 });
 
-
 // { id: 'ttest',
 // name: 'ttest',
 // email: 'penguns@naver.com',
 // password: 'iQNy7IEYP/6zUvUW7yLZ5y7/hVyWHWeCdQWnkUoCiSA0tar8pLsy+uQXOQD+A5B74i+cAC107vFAO4VRGSmKyw==' }
-
 
 var io = require('socket.io').listen(3001);
 

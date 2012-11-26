@@ -20,84 +20,76 @@ a.sidebar_switch.on_switch.ttip_r(href='javascript:void(0)', title='Hide Sidebar
 							.accordion-heading
 								a.accordion-toggle(href='#collapseOne', data-parent='#side_accordion', data-toggle='collapse')
 									i.icon-folder-close
-									| Content
+									|  콘텐츠 분류
 							#collapseOne.accordion-body.collapse
 								.accordion-inner
 									ul.nav.nav-list
 										li
-											a(href='javascript:void(0)') Articles
+											a(href='javascript:void(0)') 인물
 										li
-											a(href='javascript:void(0)') News
+											a(href='javascript:void(0)') 영화
 										li
-											a(href='javascript:void(0)') Newsletters
+											a(href='javascript:void(0)') 음악
 										li
-											a(href='javascript:void(0)') Comments
+											a(href='javascript:void(0)') 방송
 						.accordion-group
 							.accordion-heading
 								a.accordion-toggle(href='#collapseTwo', data-parent='#side_accordion', data-toggle='collapse')
 									i.icon-th
-									| Modules
+									|  보기 형식
 							#collapseTwo.accordion-body.collapse
 								.accordion-inner
 									ul.nav.nav-list
 										li
-											a(href='javascript:void(0)') Content blocks
+											a(href='javascript:void(0)') 다이나믹 그리드
 										li
-											a(href='javascript:void(0)') Tags
+											a(href='javascript:void(0)') 목록
 										li
-											a(href='javascript:void(0)') Blog
-										li
-											a(href='javascript:void(0)') FAQ
-										li
-											a(href='javascript:void(0)') Formbuilder
-										li
-											a(href='javascript:void(0)') Location
-										li
-											a(href='javascript:void(0)') Profiles
+											a(href='javascript:void(0)') 그리드
 						.accordion-group
 							.accordion-heading
 								a.accordion-toggle(href='#collapseThree', data-parent='#side_accordion', data-toggle='collapse')
 									i.icon-user
-									| Account manager
+									|  인물 분류
 							#collapseThree.accordion-body.collapse
 								.accordion-inner
 									ul.nav.nav-list
 										li
-											a(href='javascript:void(0)') Members
+											a(href='javascript:void(0)') 연예인
 										li
-											a(href='javascript:void(0)') Members groups
+											a(href='javascript:void(0)') 영화인
 										li
-											a(href='javascript:void(0)') Users
+											a(href='javascript:void(0)') 방송인
 										li
-											a(href='javascript:void(0)') Users groups
+											a(href='javascript:void(0)') 기타
 						.accordion-group
 							.accordion-heading
 								a.accordion-toggle(href='#collapseFour', data-parent='#side_accordion', data-toggle='collapse')
 									i.icon-cog
-									| Configuration
+									|  관리자
 							#collapseFour.accordion-body.collapse
 								.accordion-inner
 									ul.nav.nav-list
-										li.nav-header People
-										li.active
-											a(href='javascript:void(0)') Account Settings
+										li.nav-header 회원 관리
 										li
-											a(href='javascript:void(0)') IP Adress Blocking
-										li.nav-header System
+											a(href='/users') 사용자 목록
 										li
-											a(href='javascript:void(0)') Site information
+											a(href='/users/new') 새 사용자 추가
+										li.nav-header 데이터베이스
 										li
-											a(href='javascript:void(0)') Actions
+											a(href='javascript:void(0)') 주 저장소
 										li
-											a(href='javascript:void(0)') Cron
+											a(href='javascript:void(0)') 임시 저장소
+										li
+											a(href='/graph') 그래프 색인
 										li.divider
 										li
-											a(href='javascript:void(0)') Help
+											a(href='javascript:void(0)') 도움
 						.accordion-group
 							.accordion-heading
 								a.accordion-toggle(href='#collapseLong', data-parent='#side_accordion', data-toggle='collapse')
 									i.icon-leaf
-									| Long content (scrollbar)
+									|  추천 검색어
 							#collapseLong.accordion-body.collapse
 								.accordion-inner
 									| Some text to show sidebar scroll bar

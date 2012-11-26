@@ -1,4 +1,4 @@
-// users.js
+// Neo4j template
 // Routes to CRUD users.
 
 var User = require('../db/graph');
