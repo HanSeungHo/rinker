@@ -1,7 +1,7 @@
 // User model logic.
-var config = require('../config'),
+var CONFIG = require('../config/config');
 var neo4j = require('neo4j');
-var db = new neo4j.GraphDatabase(process.env.NEO4J_URL || config.neo4j_host;
+var db = new neo4j.GraphDatabase(process.env.NEO4J_URL || CONFIG.NEO4J_HOST);
 
 // constants:
 
