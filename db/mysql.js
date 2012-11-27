@@ -1,8 +1,6 @@
 var CONFIG = require('../config/config'),
-    mysql = require('mysql');
-
-// init;
-var client = mysql.createConnection(CONFIG.MYSQL);
+    mysql = require('mysql'),
+    client = mysql.createConnection(CONFIG.MYSQL);
 
 // // destroy old db
 // client.query('DROP DATABASE IF EXISTS mynode_db', function(err) {

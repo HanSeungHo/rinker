@@ -8,13 +8,6 @@ a.sidebar_switch.on_switch.ttip_r(href='javascript:void(0)', title='Hide Sidebar
 						input.search_query.input-medium(autocomplete='off', name='q', size='16', type='text', placeholder='Search...')
 						button.btn(type='submit')
 							i.icon-search
-					form.input-append(action='/sql', method='get')
-						select(name='use',style='width:160px')
-							option entertainer
-							option repository
-						input.search_query.input-medium(autocomplete='off', name='sql', size='16', type='text', placeholder='SQL QUERY')
-						button.btn(type='submit')
-							i.icon-search	
 					#side_accordion.accordion
 						.accordion-groupS
 							.accordion-heading
@@ -70,6 +63,13 @@ a.sidebar_switch.on_switch.ttip_r(href='javascript:void(0)', title='Hide Sidebar
 							#collapseFour.accordion-body.collapse
 								.accordion-inner
 									ul.nav.nav-list
+										li
+											form.input-append(action='/sql', method='get')
+												select(name='use',style='width:160px')
+													option repository
+												input.search_query.input-medium(autocomplete='off', name='sql', size='16', type='text', placeholder='SQL QUERY')
+												button.btn(type='submit')
+													i.icon-search	
 										li.nav-header 회원 관리
 										li
 											a(href='/users') 사용자 목록
