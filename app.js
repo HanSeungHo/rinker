@@ -22,8 +22,7 @@ var express = require('express')
 	, graph = require('./routes/graph')
 	, auth = require('./routes/auth')
 	, http = require('http')
-	, path = require('path')
-	, db_helper = require("./db/mysql");
+	, path = require('path');
 
 var app = express();
 
@@ -115,28 +114,5 @@ http.createServer(app).listen(app.get('port'), function(){
 	console.log(logo,"Rinker server listening on port", app.get('port'));
 });
 
-// Socket.io
-var io = require('socket.io').listen(3001);
-
-io.sockets.on('connection', function(client) {
-	console.log('Socket.io client connected'); 
-
-	// populate employees on client
-	db_helper.get_employees(function(employees) {
-		client.emit('populate', employees);
-	});
-	
-	// add plz - open api & realname
-
-	// socket server
-	client.on('add employee', function(data) {
-		// create employee, when its done repopulate employees on client
-		db_helper.add_employee(data, function(lastId) {
-			// repopulate employees on client
-			db_helper.get_employees(function(employees) {
-				client.emit('populate', employees);
-			});
-		});
-	});
-
-});
+// Websocket, Socket server
+var net = require('./network');
