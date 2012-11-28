@@ -41,10 +41,9 @@ exports.actor= function(query, calback) {
     "WHERE appearance.movie_id = (SELECT movie_id FROM movie WHERE movie.name LIKE '%QUERY%')"
   ].join('\n')
    .replace('QUERY', query);
-  
   client.query ( sql, function(err, res, fil){ 
     client.query("SELECT * FROM movie INNER JOIN appearance ON movie.movie_id = appearance.movie_id WHERE actor_id = "+res[0].actor_id, function(err, res, fil) {
-      console.log(fil);
+      calback(res);
     })
   });
 }
@@ -63,9 +62,10 @@ exports.getQuery = function(query, calback) {
 exports.getAll = function(calback) {
   client.query("USE " + CONFIG.MYSQL.PERSON.DB);
   client.query(
-    "SELECT * FROM `" + CONFIG.MYSQL.PERSON.TABLE + "` WHERE `name` LIMIT 0, " + CONFIG.MYSQL.PERSON.LIMIT 
+    "SELECT * FROM `" + CONFIG.MYSQL.PERSON.TABLE + "` LIMIT 0, " + CONFIG.MYSQL.PERSON.LIMIT 
     , function(err, results, fields) {
       calback(results);
+      console.log(results);
   });
 }
 

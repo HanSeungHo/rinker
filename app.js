@@ -73,7 +73,7 @@ function loadAdmin(req, res, next) {
 	}
 };
 
-app.get('/movie', loadUser, search.movie);
+app.get('/actor', loadUser, search.actor);
 // Index
 app.get('/', loadUser, routes.index);
 

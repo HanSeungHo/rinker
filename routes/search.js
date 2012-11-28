@@ -43,9 +43,9 @@ exports.sql = function(req, res){
 };
 
 // route /sql:query
-exports.movie = function(req, res){
+exports.actor = function(req, res){
 	var query = req.param('q');
-	mysql.movie(query, function(rows) {
+	mysql.actor(query, function(rows) {
 			res.render('search', { 
 				title: 'Rinker-Result',
 				query: 'USE ',
@@ -58,5 +58,5 @@ exports.movie = function(req, res){
 
 // socket test
 exports.socket = function(req, res){
-	res.render('socket', { title: 'Socket Test', error: '에러' });
+	res.render('socket', { title: 'Socket Test'});
 };

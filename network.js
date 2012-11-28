@@ -33,13 +33,19 @@ var Socket = require('net').Socket,
 //     	console.log('connected!!');
 //  });
 
-
-
-
+//windows server 54
 
 // Websocket
 io.sockets.on('connection', function(client) {
 	console.log('Socket.io client connected'); 
+
+
+	//광해 
+	client.on('actor', function(data) {
+		mysql.actor(data.query, function(rows) {
+			client.emit('result', rows);
+		});
+	});
 
 	// Client(web browser) send
 	mysql.get_employees(function(employees) {

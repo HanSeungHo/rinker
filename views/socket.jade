@@ -5,7 +5,6 @@ block content
 		.main_content
 			.row-fluid
 				h1 #{title}
-				p #{error} dddd
 
 				style(type='text/css')
 					html , body {
@@ -13,29 +12,13 @@ block content
 					}
 				script(src='http://localhost:3001/socket.io/socket.io.js')
 				script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js')
-				script(type='text/javascript')
-					$(document).ready(function() {
-					var socket  = io.connect('http://localhost:3001');
-					$('#save').click(function() {
-					if ($('#employee_name').val() == '' || $('#employee_salary').val() == '') {
-					return alert('Please enter both name/salary!');
-					}
-					var data = {
-					name: $('#employee_name').val(),
-					salary: $('#employee_salary').val()
-					};
-					socket.emit('add employee', data);
-					$('#employee_name').val('');
-					$('#employee_salary').val('');
-					});
-					socket.on('populate', function(data) {
-					var out = "";
-					$.each(data, function(i, obj) {
-					out += "<li>"+obj.name+" is making "+obj.salary+"</li>";
-					});
-					$('#employees').html(out);
-					});
-					});
+				script(src='/test.js')
+				div
+					| Actor:
+					input#actor(type='text', value='')
+				div
+					input#search(type='button', value='search')
+				br
 
 				b Create new employee
 				div
