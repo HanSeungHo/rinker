@@ -1,19 +1,19 @@
 var logo = '\n'
-+ '================================================================\n\n'
-+ '        OOOOOO,   OO~            OO                             \n'
-+ '        OO   OOO  OO~            OO                             \n'
-+ '        OO    OO                 OO                  ,OOO,      \n'
-+ '        OO    OO  OO~  OOOOOOO   OO  ,O,  OOOOOO   O~OO OOO     \n'
-+ '        OO   ,OO  OO~  OO   OO.  OO .O,  ,OO   OO  OO           \n'
-+ '        OOOOOOO   OO~  OO   OO.  OO O,   OO    OO  OO           \n'
-+ '        OO  OO.   OO~  OO   OO.  OOOO.   OOOOOOOO  OO           \n'
-+ '        OO  .OO   OO~  OO   OO.  OO OO   OO        OO           \n'
-+ '        OO   OO,  OO~  OO   OO.  OO  OO  OO.       OO           \n'
-+ '        OO   .OO  OO~  OO   OO.  OO  OOO  OO  OO,  OO           \n'
-+ '        OO    OOO OO~  OO   OO.  OO   OO   OOOO    OO           \n\n'
-+ '----------------------------------------------------------------\n'
-+ '          AMI TEAM PROJECT : ENTERTAINMENT SEARCH SERVICE       \n'
-+ '================================================================\n\n';
++'================================================================\n\n'
++'        OOOOOO,   OO~            OO                             \n'
++'        OO   OOO  OO~            OO                             \n'
++'        OO    OO                 OO                  ,OOO,      \n'
++'        OO    OO  OO~  OOOOOOO   OO  ,O,  OOOOOO   O~OO OOO     \n'
++'        OO   ,OO  OO~  OO   OO.  OO .O,  ,OO   OO  OO           \n'
++'        OOOOOOO   OO~  OO   OO.  OO O,   OO    OO  OO           \n'
++'        OO  OO.   OO~  OO   OO.  OOOO.   OOOOOOOO  OO           \n'
++'        OO  .OO   OO~  OO   OO.  OO OO   OO        OO           \n'
++'        OO   OO,  OO~  OO   OO.  OO  OO  OO.       OO           \n'
++'        OO   .OO  OO~  OO   OO.  OO  OOO  OO  OO,  OO           \n'
++'        OO    OOO OO~  OO   OO.  OO   OO   OOOO    OO           \n\n'
++'----------------------------------------------------------------\n'
++'          AMI TEAM PROJECT : ENTERTAINMENT SEARCH SERVICE       \n'
++'================================================================\n\n';
 
 // Modules require
 var express = require('express')
@@ -74,6 +74,7 @@ function loadAdmin(req, res, next) {
 	}
 };
 
+app.get('/movie', loadUser, search.movie);
 // Index
 app.get('/', loadUser, routes.index);
 
@@ -106,7 +107,7 @@ app.post('/graph/:id/follow', loadAdmin, graph.follow);
 app.post('/graph/:id/music', loadAdmin, graph.music);
 app.post('/graph/:id/unfollow', loadAdmin, graph.unfollow);
 
-// Error
+// Error page
 app.get('/error', loadUser, search.error);
 
 // Create server
@@ -125,7 +126,9 @@ io.sockets.on('connection', function(client) {
 		client.emit('populate', employees);
 	});
 	
-	// client add new employee
+	// add plz - open api & realname
+
+	// socket server
 	client.on('add employee', function(data) {
 		// create employee, when its done repopulate employees on client
 		db_helper.add_employee(data, function(lastId) {
@@ -135,4 +138,5 @@ io.sockets.on('connection', function(client) {
 			});
 		});
 	});
+
 });

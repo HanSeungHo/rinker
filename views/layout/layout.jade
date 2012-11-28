@@ -122,9 +122,9 @@ head
 								li.dropdown
 									a.dropdown-toggle(href='#', data-toggle='dropdown')
 										if user
-											| #{user.name}
+											| #{user.name} (#{user.id})
 										else
-											a(href="/login") 로그인
+											| 손님 (Guest)
 										b.caret
 									ul.dropdown-menu
 										if user
@@ -135,6 +135,11 @@ head
 											li.divider
 											li
 												a(href='/logout') 로그아웃
+										else
+											li
+												a(href='/login') 로그인
+											li
+												a(href='/user/new') 회원가입											
 							a.btn_menu(data-target='.nav-collapse', data-toggle='collapse')
 								span.icon-align-justify									
 							nav

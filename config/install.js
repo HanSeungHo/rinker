@@ -5,13 +5,13 @@ client.query('DROP DATABASE IF EXISTS mynode_db', function(err) {
   if (err) { throw err; }
 });
 
-// create database
+// Create database
 client.query('CREATE DATABASE mynode_db', function(err) {
   if (err) { throw err; }
 });
 console.log('++ Database mynode_db is created.');
 
-// create table
+// Create table
 var sql = ""+
 "create table employees("+
 " id int unsigned not null auto_increment,"+
