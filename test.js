@@ -11,5 +11,6 @@ io.sockets.on('connection', function(client) {
 	socket.on('query', function (data) {
 		console.log(data);
 	});
+	
 
 });

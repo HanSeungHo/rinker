@@ -38,6 +38,11 @@ var Socket = require('net').Socket,
 // Websocket
 io.sockets.on('connection', function(client) {
 	console.log('Socket.io client connected'); 
+	
+	// C# recive
+	client.on('query', function (data) {
+		console.log(data);
+	});
 
 
 	//광해 
@@ -63,9 +68,5 @@ io.sockets.on('connection', function(client) {
 		});
 	});
 
-	// C# recive
-	socket.on('query', function (data) {
-		console.log(data);
-	});
 
 });
