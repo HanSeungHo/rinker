@@ -1,7 +1,21 @@
-/**
- * Module dependencies.
- */
+var logo = '\n'
++ '================================================================\n\n'
++ '        OOOOOO,   OO~            OO                             \n'
++ '        OO   OOO  OO~            OO                             \n'
++ '        OO    OO                 OO                  ,OOO,      \n'
++ '        OO    OO  OO~  OOOOOOO   OO  ,O,  OOOOOO   O~OO OOO     \n'
++ '        OO   ,OO  OO~  OO   OO.  OO .O,  ,OO   OO  OO           \n'
++ '        OOOOOOO   OO~  OO   OO.  OO O,   OO    OO  OO           \n'
++ '        OO  OO.   OO~  OO   OO.  OOOO.   OOOOOOOO  OO           \n'
++ '        OO  .OO   OO~  OO   OO.  OO OO   OO        OO           \n'
++ '        OO   OO,  OO~  OO   OO.  OO  OO  OO.       OO           \n'
++ '        OO   .OO  OO~  OO   OO.  OO  OOO  OO  OO,  OO           \n'
++ '        OO    OOO OO~  OO   OO.  OO   OO   OOOO    OO           \n\n'
++ '----------------------------------------------------------------\n'
++ '          AMI TEAM PROJECT : ENTERTAINMENT SEARCH SERVICE       \n'
++ '================================================================\n\n';
 
+// Modules require
 var express = require('express')
 	, routes = require('./routes')
 	, search = require('./routes/search')
@@ -13,6 +27,7 @@ var express = require('express')
 
 var app = express();
 
+// Express configure
 app.configure(function(){
 	app.set('port', process.env.PORT || 3000);
 	app.set('views', __dirname + '/views');
@@ -27,15 +42,83 @@ app.configure(function(){
 	app.use(express.static(path.join(__dirname, 'public')));
 });
 
-// { id: 'ttest',
-// name: 'ttest',
-// email: 'penguns@naver.com',
-// password: 'iQNy7IEYP/6zUvUW7yLZ5y7/hVyWHWeCdQWnkUoCiSA0tar8pLsy+uQXOQD+A5B74i+cAC107vFAO4VRGSmKyw==' }
+app.configure('development', function(){
+	app.use(express.errorHandler());
+});
 
+/* Session example
+{ id: 'test',
+	name: 'test',
+	email: 'penguns@naver.com',
+	password: 'iQNy7IEYP/6zUvUW7yLZ5y7/hVyWHWeCdQWnkUoCiSA0tar8pLsy+uQXOQD+A5B74i+cAC107vFAO4VRGSmKyw=='
+} */
+
+// Guest auth
+function loadUser(req, res, next) {
+	if (req.session.user) {
+		res.locals.user = req.session.user;
+		next();
+	} else {
+		res.locals.user = undefined;
+		next();
+	}
+};
+
+// Admin auth
+function loadAdmin(req, res, next) {
+	if (req.session.user) {
+		res.locals.user = req.session.user;
+		next();
+	} else {
+		res.redirect('/login');
+	}
+};
+
+// Index
+app.get('/', loadUser, routes.index);
+
+// Search
+app.get('/search', loadUser, search.query);
+app.get('/socket', loadUser, search.socket);
+app.get('/sql', loadUser, search.sql);
+
+// Login & Logout
+app.get('/login', loadUser, auth.login);
+app.post('/login', loadUser, auth.postLogin);
+app.get('/logout', loadUser, auth.logout);
+
+// User
+app.get('/users', loadAdmin, auth.getUsers);
+app.get('/users/new', loadAdmin, auth.getNew);
+app.post('/users/new', loadAdmin, auth.postNew);
+app.get('/user/:id', loadAdmin, auth.getId);
+app.post('/user/:id', loadAdmin, auth.postId);
+app.post('/dropuser', loadAdmin, auth.postDropuser);
+
+// Graph dbms
+app.get('/graph', loadAdmin, graph.list);
+app.post('/graph', loadAdmin, graph.create);
+app.get('/graph/:id', loadAdmin, graph.show);
+app.post('/graph/:id', loadAdmin, graph.edit);
+app.del('/graph/:id', loadAdmin, graph.del);
+
+app.post('/graph/:id/follow', loadAdmin, graph.follow);
+app.post('/graph/:id/music', loadAdmin, graph.music);
+app.post('/graph/:id/unfollow', loadAdmin, graph.unfollow);
+
+// Error
+app.get('/error', loadUser, search.error);
+
+// Create server
+http.createServer(app).listen(app.get('port'), function(){
+	console.log(logo,"Rinker server listening on port", app.get('port'));
+});
+
+// Socket.io
 var io = require('socket.io').listen(3001);
 
 io.sockets.on('connection', function(client) {
-	console.log('Client connected'); 
+	console.log('Socket.io client connected'); 
 
 	// populate employees on client
 	db_helper.get_employees(function(employees) {
@@ -52,83 +135,4 @@ io.sockets.on('connection', function(client) {
 			});
 		});
 	});
-
-});
-
-function loadAdmin(req, res, next) {
-	if (req.session.user) {
-		res.locals.user = req.session.user;
-		next();
-	} else {
-		res.redirect('/login');
-	}
-} 
-
-function loadUser(req, res, next) {
-	if (req.session.user) {
-		res.locals.user = req.session.user;
-		next();
-	} else {
-		res.locals.user = undefined;
-		next();
-	}
-} 
-
-app.configure('development', function(){
-	app.use(express.errorHandler());
-});
-
-// Index
-app.get('/', loadUser, routes.index);
-
-// Search
-app.get('/search', loadUser, search.query);
-app.get('/socket', loadUser, search.socket);
-app.get('/sql', loadUser, search.sql);
-
-// Login & Logout
-app.get('/login', loadUser, auth.login);
-app.post('/login', loadUser, auth.postLogin);
-app.get('/logout', loadUser, auth.logout);
-
-// Graph db
-app.get('/graph', loadAdmin, graph.list);
-app.post('/graph', loadAdmin, graph.create);
-app.get('/graph/:id', loadAdmin, graph.show);
-app.post('/graph/:id', loadAdmin, graph.edit);
-app.del('/graph/:id', loadAdmin, graph.del);
-
-app.post('/graph/:id/follow', loadAdmin, graph.follow);
-app.post('/graph/:id/music', loadAdmin, graph.music);
-app.post('/graph/:id/unfollow', loadAdmin, graph.unfollow);
-
-// User
-app.get('/users', loadAdmin, auth.getUsers);
-app.get('/users/new', loadAdmin, auth.getNew);
-app.post('/users/new', loadAdmin, auth.postNew);
-app.get('/user/:id', loadAdmin, auth.getId);
-app.post('/user/:id', loadAdmin, auth.postId);
-app.post('/dropuser', loadAdmin, auth.postDropuser);
-
-// Error
-app.get('/error', search.error);
-
-
-var logo = '\n';
-		logo += '=====================================================================\n\n'
-		logo += '          OOOOOO,   OO~            OO                                \n'
-		logo += '          OO   OOO  OO~            OO                                \n'
-		logo += '          OO    OO                 OO                   ,OOO,        \n'
-		logo += '          OO    OO  OO~  OOOOOOO   OO  ,O,  OOOOOO   O~OOO OOOO      \n'
-		logo += '          OO   ,OO  OO~  OO   OO.  OO .O,  ,OO   OO  OO              \n'
-		logo += '          OOOOOOO   OO~  OO   OO.  OO O,   OO    OO  OO              \n'
-		logo += '          OO  OO.   OO~  OO   OO.  OOOO.   OOOOOOOO  OO              \n'
-		logo += '          OO  .OO   OO~  OO   OO.  OO OO   OO        OO              \n'
-		logo += '          OO   OO,  OO~  OO   OO.  OO  OO  OO.       OO              \n'
-		logo += '          OO   .OO  OO~  OO   OO.  OO  OOO  OO  OO,  OO              \n'
-		logo += '          OO    OOO OO~  OO   OO.  OO   OO   OOOO    OO              \n'
-		logo += '=====================================================================\n\n'
-
-http.createServer(app).listen(app.get('port'), function(){
-	console.log(logo,"Rinker server listening on port ", app.get('port'));
 });
