@@ -12,7 +12,6 @@ exports.getUsers = function(req, res) {
 };
 
 exports.login = function(req, res) {
-            console.log(req.session.user);
   return res.render('login', {
     title: 'login',
     return_to: req.header('Referrer')

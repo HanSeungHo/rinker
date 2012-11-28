@@ -54,6 +54,7 @@ exports.getDB = function(calback) {
   });
 }
 
+// Search query
 exports.getQuery = function(query, calback) {
   client.query("USE " + CONFIG.MYSQL_PEOPLE_DB);
   client.query(
@@ -64,6 +65,7 @@ exports.getQuery = function(query, calback) {
   });
 }
 
+// SQL
 exports.getSQL = function(use, sql, calback) {
   client.query("USE " + use);
   client.query(sql, function(err, results, fields) {

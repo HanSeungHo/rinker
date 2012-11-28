@@ -140,6 +140,12 @@ head
 							nav
 								.nav-collapse
 									ul.nav
+										li
+											form.input-append(action='/search', method='get')
+												input.search_query.input-medium(autocomplete='off', name='q', size='16', type='text', placeholder='검색')
+												button.btn(type='submit')
+													i.icon-search
+
 										li.dropdown
 											a.dropdown-toggle(data-toggle='dropdown', href='#')
 												i.icon-list-alt
