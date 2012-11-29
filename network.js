@@ -1,49 +1,41 @@
 // Network
-var Socket = require('net').Socket,
-		io = require('socket.io').listen(3001),
-		mysql = require("./db/mysql");
+var client = new Array();
 
-// TCP Socket
-// var socket = new Socket();
+var //net = require('net'),
+    Socket = require('net').Socket,
+    io = require('socket.io').listen(3001);
+
+var SERVER = {
+	//192.168.11.29
+  HOST : '127.0.0.1',
+  PORT : 3100
+}
+var CLIENT = {
+  HOST : '203.247.161.55',
+  PORT : 3100
+}
+
+var mysql = require("./db/mysql");
 
 
-// var net = require('net');
+// var ioc = require('socket.io-client');
+// var serverUrl = 'http://localhost:3002/ns';
 
-// var tcp_server = net.createSever(function(socket)
-// {
-// 	socket.write('tset');
-// 	socket.end('world');
-// }
+// var conn = ioc.connect(serverUrl);
 
-// 	);
+// var p1 = 'test';
+// conn.emit('call', p1, function(resp, data) {
+//     console.log('server sent resp code ' + resp);
+// });
 
-// tcp_server.listen(3100);
-// socket.on('error', function(error) {
-//     	console.log('Event error:');
-//     	console.log(error);
-//     })
-//     .on('data', function(data) {
-//     	console.log('Event data:');
-//     	console.log(data);
-//     })
-//     .on('end', function() {
-//     	console.log('Event end:');
-//     })
-//     .connect(3002, '203.247.161.50', function() {
-//     	console.log('connected!!');
-//  });
-
-//windows server 54
-
-// Websocket
+// Websocket Server
 io.sockets.on('connection', function(client) {
 	console.log('Socket.io client connected'); 
-	
+
 	// C# recive
 	client.on('query', function (data) {
 		console.log(data);
 	});
-
 
 	//광해 
 	client.on('actor', function(data) {
@@ -67,6 +59,18 @@ io.sockets.on('connection', function(client) {
 			});
 		});
 	});
-
-
 });
+
+
+// // var net = require('net');
+// var client = net.connect(CLIENT.PORT, CLIENT.HOST, function(){
+//    client.on('data', function(data) {
+//      console.log('data:', data.toString());
+//    });
+
+//    client.on('error', function(err) {
+//      console.log('error:', err.message);
+//    });
+
+//    client.write('아이유가 부른 노래');
+// });
