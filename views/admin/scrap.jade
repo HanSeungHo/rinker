@@ -1,0 +1,14 @@
+extends ../layout/layout
+
+block content
+	#contentwrapper
+		.main_content
+			.row-fluid
+				h1 데이터 수집
+				p
+					form(method="post", action="http://127.0.0.1:3100/natelist")
+						input(name='s', type='hidden', value=1)
+						input(name='e', type='hidden', value=2)
+						button(type="submit", name="submit").label.label-warning Nate list scraper
+					a.btn(href="/search?q=") 전체 보기 
+	include ../layout/sidebar

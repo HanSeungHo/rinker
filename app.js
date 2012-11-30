@@ -74,8 +74,9 @@ function loadAdmin(req, res, next) {
 };
 
 app.get('/actor', loadUser, search.actor);
-// Index
+// Page
 app.get('/', loadUser, routes.index);
+app.get('/scraper', loadAdmin, routes.scraper);
 
 // Search
 app.get('/search', loadUser, search.query);
