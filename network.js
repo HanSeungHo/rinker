@@ -5,28 +5,28 @@ var //net = require('net'),
     Socket = require('net').Socket,
     io = require('socket.io').listen(3001);
 
-var SERVER = {
-	//192.168.11.29
-  HOST : '127.0.0.1',
-  PORT : 3100
-}
-var CLIENT = {
-  HOST : '203.247.161.55',
-  PORT : 3100
-}
+// var SERVER = {
+// 	//192.168.11.29
+//   HOST : '127.0.0.1',
+//   PORT : 3100
+// }
+// var CLIENT = {
+//   HOST : '203.247.161.55',
+//   PORT : 3100
+// }
 
 var mysql = require("./db/mysql");
 
 
-// var ioc = require('socket.io-client');
-// var serverUrl = 'http://localhost:3002/ns';
+var ioc = require('socket.io-client');
+var serverUrl = 'http://localhost:3002/ns';
 
-// var conn = ioc.connect(serverUrl);
+var conn = ioc.connect(serverUrl);
 
-// var p1 = 'test';
-// conn.emit('call', p1, function(resp, data) {
-//     console.log('server sent resp code ' + resp);
-// });
+var p1 = 'test';
+conn.emit('call', p1, function(resp, data) {
+    console.log('server sent resp code ' + resp);
+});
 
 // Websocket Server
 io.sockets.on('connection', function(client) {
