@@ -22,7 +22,7 @@
                   autoResize: true, // This will auto-update the layout when the browser window is resized.
                   container: $('#large_grid'), // Optional, used for some extra CSS styling
                   offset: 6, // Optional, the distance between grid items
-                  itemWidth: 220, // Optional, the width of a grid item (li)
+                  itemWidth: 170, // Optional, the width of a grid item (li)
                   flexibleItemWidth: true
                 };
                 
@@ -39,14 +39,14 @@
                     $(this).removeClass('act_tools');
                 });
                 
-                $('#large_grid ul li > a').attr('rel', 'gallery').colorbox({
-                    maxWidth	: '80%',
-                    maxHeight	: '80%',
-                    opacity		: '0.1', 
-                    loop		: true,
-                    slideshow   : true,
-                    fixed		: true
-                });
+                // $('#large_grid ul li > a').attr('rel', 'gallery').colorbox({
+                //     maxWidth	: '80%',
+                //     maxHeight	: '80%',
+                //     opacity		: '0.1', 
+                //     loop		: true,
+                //     slideshow   : true,
+                //     fixed		: true
+                // });
             });
         },
 		mixed: function() {
@@ -56,7 +56,7 @@
                   autoResize: true, // This will auto-update the layout when the browser window is resized.
                   container: $('#mixed_grid'), // Optional, used for some extra CSS styling
                   offset: 6, // Optional, the distance between grid items
-                  itemWidth: 220, // Optional, the width of a grid item (li)
+                  itemWidth: 170, // Optional, the width of a grid item (li)
                   flexibleItemWidth: true
                 };
                 

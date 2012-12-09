@@ -1,0 +1,7 @@
+extends layout/layout
+
+block content
+	#contentwrapper: .main_content.iframe
+		iframe(src='#{url}', scrolling='auto', id='rinker', name="rinker")
+	include layout/sidebar
+

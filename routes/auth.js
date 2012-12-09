@@ -14,7 +14,8 @@ exports.getUsers = function(req, res) {
 exports.login = function(req, res) {
   return res.render('login', {
     title: 'login',
-    return_to: req.header('Referrer')
+    return_to: req.header('Referrer'),
+    message: req.flash('info')
   });
 };
 
@@ -44,7 +45,7 @@ exports.postLogin = function(req, res) {
         }
       });
     } else {
-      req.session.error = err.message;
+      req.flash('info', err.message)
       return res.redirect('/login');
     }
   });

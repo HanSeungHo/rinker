@@ -1,0 +1,783 @@
+!!! 5
+html(lang='en')
+head
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    title Gebo Admin Panel
+    //
+       Bootstrap framework 
+    link(rel='stylesheet', href='bootstrap/css/bootstrap.min.css')
+    link(rel='stylesheet', href='bootstrap/css/bootstrap-responsive.min.css')
+    //
+       gebo blue theme
+    link#link_theme(rel='stylesheet', href='css/blue.css')
+    //
+       breadcrumbs
+    link(rel='stylesheet', href='lib/jBreadcrumbs/css/BreadCrumb.css')
+    //
+       tooltips
+    link(rel='stylesheet', href='lib/qtip2/jquery.qtip.min.css')
+    //
+       notifications 
+    link(rel='stylesheet', href='lib/sticky/sticky.css')
+    //
+       colorbox 
+    link(rel='stylesheet', href='lib/colorbox/colorbox.css')
+    //
+       notifications 
+    link(rel='stylesheet', href='lib/sticky/sticky.css')
+    //
+       splashy icons 
+    link(rel='stylesheet', href='img/splashy/splashy.css')
+    //
+       main styles 
+    link(rel='stylesheet', href='css/style.css')
+    link(rel='stylesheet', href='http://fonts.googleapis.com/css?family=PT+Sans')
+    //
+       Favicon 
+    link(rel='shortcut icon', href='favicon.ico')
+    //if lte IE 8
+      link(rel='stylesheet', href='css/ie.css')
+      script(src='js/ie/html5.js')
+      script(src='js/ie/respond.min.js')
+    script
+      //* hide all elements & show preloader
+      document.documentElement.className += 'js';
+  body
+    #loading_layer(style='display: none;')
+      img(src='img/ajax_loader.gif', alt='')
+    .style_switcher
+      .sepH_c
+        p Colors:
+        .clearfix
+          a.style_item.jQclr.blue_theme.style_active(href='javascript:void(0)', title='blue') blue
+          a.style_item.jQclr.dark_theme(href='javascript:void(0)', title='dark') dark
+          a.style_item.jQclr.green_theme(href='javascript:void(0)', title='green') green
+          a.style_item.jQclr.brown_theme(href='javascript:void(0)', title='brown') brown
+          a.style_item.jQclr.eastern_blue_theme(href='javascript:void(0)', title='eastern_blue') eastern blue
+          a.style_item.jQclr.tamarillo_theme(href='javascript:void(0)', title='tamarillo') tamarillo
+      .sepH_c
+        p Backgrounds:
+        .clearfix
+          span.style_item.jQptrn.style_active.ptrn_def(title='')
+          span.ssw_ptrn_a.style_item.jQptrn(title='ptrn_a')
+          span.ssw_ptrn_b.style_item.jQptrn(title='ptrn_b')
+          span.ssw_ptrn_c.style_item.jQptrn(title='ptrn_c')
+          span.ssw_ptrn_d.style_item.jQptrn(title='ptrn_d')
+          span.ssw_ptrn_e.style_item.jQptrn(title='ptrn_e')
+      .sepH_c
+        p Layout:
+        .clearfix
+          label.radio.inline
+            input#ssw_layout_fluid(type='radio', name='ssw_layout', value='', checked='checked')
+            | Fluid
+          label.radio.inline
+            input#ssw_layout_fixed(type='radio', name='ssw_layout', value='gebo-fixed')
+            | Fixed
+      .sepH_c
+        p Sidebar position:
+        .clearfix
+          label.radio.inline
+            input#ssw_sidebar_left(type='radio', name='ssw_sidebar', value='', checked='checked')
+            | Left
+          label.radio.inline
+            input#ssw_sidebar_right(type='radio', name='ssw_sidebar', value='sidebar_right')
+            | Right
+      .sepH_c
+        p Show top menu on:
+        .clearfix
+          label.radio.inline
+            input#ssw_menu_click(type='radio', name='ssw_menu', value='', checked='checked')
+            | Click
+          label.radio.inline
+            input#ssw_menu_hover(type='radio', name='ssw_menu', value='menu_hover')
+            | Hover
+      .gh_button-group
+        a#showCss.btn.btn-primary.btn-mini(href='#') Show CSS
+        a#resetDefault.btn.btn-mini(href='#') Reset
+      .hide
+        ul#ssw_styles
+          li.small.ssw_mbColor.sepH_a(style='display: none;')
+            | body {
+            span.ssw_mColor.sepH_a(style='display: none;')
+              | color: #
+              span
+              | ;
+            span.ssw_bColor(style='display: none;')
+              | background-color: #
+              span
+            | }
+          li.small.ssw_lColor.sepH_a(style='display: none;')
+            | a { color: #
+            span
+            | }
+    #maincontainer.clearfix
+      //
+         header 
+      header
+        .navbar.navbar-fixed-top
+          .navbar-inner
+            .container-fluid
+              a.brand(href='dashboard.html')
+                i.icon-home.icon-white
+                | Gebo Admin
+              ul.nav.user_menu.pull-right
+                li.hidden-phone.hidden-tablet
+                  .nb_boxes.clearfix
+                    a.label.ttip_b(data-toggle='modal', data-backdrop='static', href='#myMail', title='New messages')
+                      | 25
+                      i.splashy-mail_light
+                    a.label.ttip_b(data-toggle='modal', data-backdrop='static', href='#myTasks', title='New tasks')
+                      | 10
+                      i.splashy-calendar_week
+                li.divider-vertical.hidden-phone.hidden-tablet
+                li.dropdown
+                  a.dropdown-toggle(href='#', data-toggle='dropdown')
+                    | Johny Smith
+                    b.caret
+                  ul.dropdown-menu
+                    li
+                      a(href='user_profile.html') My Profile
+                    li
+                      a(href='javascrip:void(0)') Another action
+                    li.divider
+                    li
+                      a(href='login.html') Log Out
+              a.btn_menu(data-target='.nav-collapse', data-toggle='collapse')
+                span.icon-align-justify.icon-white
+              nav
+                .nav-collapse
+                  ul.nav
+                    li.dropdown
+                      a.dropdown-toggle(data-toggle='dropdown', href='#')
+                        i.icon-list-alt.icon-white
+                        | Forms
+                        b.caret
+                      ul.dropdown-menu
+                        li
+                          a(href='form_elements.html') Form elements
+                        li
+                          a(href='form_extended.html') Extended form elements
+                        li
+                          a(href='form_validation.html') Form Validation
+                    li.dropdown
+                      a.dropdown-toggle(data-toggle='dropdown', href='#')
+                        i.icon-th.icon-white
+                        | Components
+                        b.caret
+                      ul.dropdown-menu
+                        li
+                          a(href='alerts_btns.html') Alerts & Buttons
+                        li
+                          a(href='icons.html') Icons
+                        li
+                          a(href='notifications.html') Notifications
+                        li
+                          a(href='tables.html') Tables
+                        li
+                          a(href='tables_more.html') Tables (more examples)
+                        li
+                          a(href='tabs_accordion.html') Tabs & Accordion
+                        li
+                          a(href='tooltips.html') Tooltips, Popovers
+                        li
+                          a(href='typography.html') Typography
+                        li
+                          a(href='widgets.html') Widget boxes
+                        li.dropdown
+                          a(href='#')
+                            | Sub menu
+                            b.caret-right
+                          ul.dropdown-menu
+                            li
+                              a(href='#') Sub menu 1.1
+                            li
+                              a(href='#') Sub menu 1.2
+                            li
+                              a(href='#') Sub menu 1.3
+                            li
+                              a(href='#')
+                                | Sub menu 1.4
+                                b.caret-right
+                              ul.dropdown-menu
+                                li
+                                  a(href='#') Sub menu 1.4.1
+                                li
+                                  a(href='#') Sub menu 1.4.2
+                                li
+                                  a(href='#') Sub menu 1.4.3
+                    li.dropdown
+                      a.dropdown-toggle(data-toggle='dropdown', href='#')
+                        i.icon-wrench.icon-white
+                        | Plugins
+                        b.caret
+                      ul.dropdown-menu
+                        li
+                          a(href='charts.html') Charts
+                        li
+                          a(href='calendar.html') Calendar
+                        li
+                          a(href='datatable.html') Datatable
+                        li
+                          a(href='file_manager.html') File Manager
+                        li
+                          a(href='floating_header.html') Floating List Header
+                        li
+                          a(href='google_maps.html') Google Maps
+                        li
+                          a(href='gallery.html') Gallery Grid
+                        li
+                          a(href='wizard.html') Wizard
+                    li.dropdown
+                      a.dropdown-toggle(data-toggle='dropdown', href='#')
+                        i.icon-file.icon-white
+                        | Pages
+                        b.caret
+                      ul.dropdown-menu
+                        li
+                          a(href='chat.html') Chat
+                        li
+                          a(href='error_404.html') Error 404
+                        li
+                          a(href='mailbox.html') Mailbox
+                        li
+                          a(href='search_page.html') Search page
+                        li
+                          a(href='user_profile.html') User profile
+                        li
+                          a(href='user_static.html') User profile (static)
+                    li
+                    li
+                      a(href='documentation.html')
+                        i.icon-book.icon-white
+                        | Help
+        #myMail.modal.hide.fade
+          .modal-header
+            button.close(data-dismiss='modal') ×
+            h3 New messages
+          .modal-body
+            .alert.alert-info In this table jquery plugin turns a table row into a clickable link.
+            table.table.table-condensed.table-striped(data-rowlink='a')
+              thead
+                tr
+                  th Sender
+                  th Subject
+                  th Date
+                  th Size
+              tbody
+                tr
+                  td Declan Pamphlett
+                  td
+                    a(href='javascript:void(0)') Lorem ipsum dolor sit amet
+                  td 23/05/2012
+                  td 25KB
+                tr
+                  td Erin Church
+                  td
+                    a(href='javascript:void(0)') Lorem ipsum dolor sit amet
+                  td 24/05/2012
+                  td 15KB
+                tr
+                  td Koby Auld
+                  td
+                    a(href='javascript:void(0)') Lorem ipsum dolor sit amet
+                  td 25/05/2012
+                  td 28KB
+                tr
+                  td Anthony Pound
+                  td
+                    a(href='javascript:void(0)') Lorem ipsum dolor sit amet
+                  td 25/05/2012
+                  td 33KB
+          .modal-footer
+            a.btn(href='javascript:void(0)') Go to mailbox
+        #myTasks.modal.hide.fade
+          .modal-header
+            button.close(data-dismiss='modal') ×
+            h3 New Tasks
+          .modal-body
+            .alert.alert-info In this table jquery plugin turns a table row into a clickable link.
+            table.table.table-condensed.table-striped(data-rowlink='a')
+              thead
+                tr
+                  th id
+                  th Summary
+                  th Updated
+                  th Priority
+                  th Status
+              tbody
+                tr
+                  td P-23
+                  td
+                    a(href='javascript:void(0)') Admin should not break if URL…
+                  td 23/05/2012
+                  td.tac
+                    span.label.label-important High
+                  td Open
+                tr
+                  td P-18
+                  td
+                    a(href='javascript:void(0)') Displaying submenus in custom…
+                  td 22/05/2012
+                  td.tac
+                    span.label.label-warning Medium
+                  td Reopen
+                tr
+                  td P-25
+                  td
+                    a(href='javascript:void(0)') Featured image on post types…
+                  td 22/05/2012
+                  td.tac
+                    span.label.label-success Low
+                  td Updated
+                tr
+                  td P-10
+                  td
+                    a(href='javascript:void(0)') Multiple feed fixes and…
+                  td 17/05/2012
+                  td.tac
+                    span.label.label-warning Medium
+                  td Open
+          .modal-footer
+            a.btn(href='javascript:void(0)') Go to task manager
+      //
+         main content 
+      #contentwrapper
+        .main_content
+          nav
+            #jCrumbs.breadCrumb.module
+              ul
+                li
+                  a(href='#')
+                    i.icon-home
+                li
+                  a(href='#') Sports & Toys
+                li
+                  a(href='#') Toys & Hobbies
+                li
+                  a(href='#') Learning & Educational
+                li
+                  a(href='#') Astronomy & Telescopes
+                li
+                  | Telescope 3735SX
+          .row-fluid
+            .span12
+              h3.heading Table with action button
+              .btn-group.sepH_b
+                button.btn.dropdown-toggle(data-toggle='dropdown')
+                  | Action
+                  span.caret
+                ul.dropdown-menu
+                  li
+                    a.delete_rows_simple(href='#', data-tableid='smpl_tbl')
+                      i.icon-trash
+                      | Delete
+                  li
+                    a(href='javascript:void(0)') Lorem ipsum
+                  li
+                    a(href='javascript:void(0)') Lorem ipsum
+              table#smpl_tbl.table.table-bordered.table-striped
+                thead
+                  tr
+                    th.table_checkbox
+                      input.select_rows(type='checkbox', name='select_rows', data-tableid='smpl_tbl')
+                    th id
+                    th Customer
+                    th Status
+                    th Date Added
+                    th Total
+                tbody
+                  tr
+                    td
+                      input.select_row(type='checkbox', name='row_sel')
+                    td 134
+                    td Summer Throssell
+                    td Pending
+                    td 24/04/2012
+                    td $120.23
+                  tr
+                    td
+                      input(type='checkbox', name='row_sel')
+                    td 133
+                    td Declan Pamphlett
+                    td Pending
+                    td 23/04/2012
+                    td $320.00
+                  tr
+                    td
+                      input(type='checkbox', name='row_sel')
+                    td 132
+                    td Erin Church
+                    td Pending
+                    td 23/04/2012
+                    td $44.00
+                  tr
+                    td
+                      input(type='checkbox', name='row_sel')
+                    td 131
+                    td Koby Auld
+                    td Pending
+                    td 22/04/2012
+                    td $180.20
+                  tr
+                    td
+                      input(type='checkbox', name='row_sel')
+                    td 130
+                    td Anthony Pound
+                    td Pending
+                    td 20/04/2012
+                    td $610.42
+          .row-fluid
+            .span12
+              h3.heading Gallery table view
+              table#dt_gal.table.table-bordered.table-striped.table_vam
+                thead
+                  tr
+                    th.table_checkbox
+                      input.select_rows(type='checkbox', name='select_rows', data-tableid='dt_gal')
+                    th Image
+                    th Name
+                    th Size
+                    th Date
+                    th Actions
+                tbody
+                  tr
+                    td
+                      input.row_sel(type='checkbox', name='row_sel')
+                    td(style='width: 60px;')
+                      a.cbox_single.thumbnail(href='gallery/Image10.jpg', title='Image 10')
+                        img(alt='', src='gallery/Image10_tn.jpg', style='height: 50px; width: 50px;')
+                    td
+                      | Lorem ipsum dolor sit
+                      br
+                      small Image10.jpg
+                    td 200 KB
+                    td 28/06/2012
+                    td
+                      a.sepV_a(href='#', title='Edit')
+                        i.icon-pencil
+                      a.sepV_a(href='#', title='View')
+                        i.icon-eye-open
+                      a(href='#', title='Delete')
+                        i.icon-trash
+                  tr
+                    td
+                      input.row_sel(type='checkbox', name='row_sel')
+                    td(style='width: 60px;')
+                      a.cbox_single.thumbnail(href='gallery/Image11.jpg', title='Image 11')
+                        img(alt='', src='gallery/Image11_tn.jpg', style='height: 50px; width: 50px;')
+                    td
+                      | Lorem ipsum dolor sit
+                      br
+                      small Image11.jpg
+                    td 210 KB
+                    td 27/06/2012
+                    td
+                      a.sepV_a(href='#', title='Edit')
+                        i.icon-pencil
+                      a.sepV_a(href='#', title='View')
+                        i.icon-eye-open
+                      a(href='#', title='Delete')
+                        i.icon-trash
+                  tr
+                    td
+                      input.row_sel(type='checkbox', name='row_sel')
+                    td(style='width: 60px;')
+                      a.cbox_single.thumbnail(href='gallery/Image12.jpg', title='Image 12')
+                        img(alt='', src='gallery/Image12_tn.jpg', style='height: 50px; width: 50px;')
+                    td
+                      | Lorem ipsum dolor sit
+                      br
+                      small Image12.jpg
+                    td 360 KB
+                    td 25/06/2012
+                    td
+                      a.sepV_a(href='#', title='Edit')
+                        i.icon-pencil
+                      a.sepV_a(href='#', title='View')
+                        i.icon-eye-open
+                      a(href='#', title='Delete')
+                        i.icon-trash
+                  tr
+                    td
+                      input.row_sel(type='checkbox', name='row_sel')
+                    td(style='width: 60px;')
+                      a.cbox_single.thumbnail(href='gallery/Image13.jpg', title='Image 13')
+                        img(alt='', src='gallery/Image13_tn.jpg', style='height: 50px; width: 50px;')
+                    td
+                      | Lorem ipsum dolor sit
+                      br
+                      small Image13.jpg
+                    td 215 KB
+                    td 24/06/2012
+                    td
+                      a.sepV_a(href='#', title='Edit')
+                        i.icon-pencil
+                      a.sepV_a(href='#', title='View')
+                        i.icon-eye-open
+                      a(href='#', title='Delete')
+                        i.icon-trash
+                  tr
+                    td
+                      input.row_sel(type='checkbox', name='row_sel')
+                    td(style='width: 60px;')
+                      a.cbox_single.thumbnail(href='gallery/Image14.jpg', title='Image 14')
+                        img(alt='', src='gallery/Image14_tn.jpg', style='height: 50px; width: 50px;')
+                    td
+                      | Lorem ipsum dolor sit
+                      br
+                      small Image14.jpg
+                    td 650 KB
+                    td 24/06/2012
+                    td
+                      a.sepV_a(href='#', title='Edit')
+                        i.icon-pencil
+                      a.sepV_a(href='#', title='View')
+                        i.icon-eye-open
+                      a(href='#', title='Delete')
+                        i.icon-trash
+                  tr
+                    td
+                      input.row_sel(type='checkbox', name='row_sel')
+                    td(style='width: 60px;')
+                      a.cbox_single.thumbnail(href='gallery/Image15.jpg', title='Image 15')
+                        img(alt='', src='gallery/Image15_tn.jpg', style='height: 50px; width: 50px;')
+                    td
+                      | Lorem ipsum dolor sit
+                      br
+                      small Image15.jpg
+                    td 428 KB
+                    td 23/06/2012
+                    td
+                      a.sepV_a(href='#', title='Edit')
+                        i.icon-pencil
+                      a.sepV_a(href='#', title='View')
+                        i.icon-eye-open
+                      a(href='#', title='Delete')
+                        i.icon-trash
+          //
+             hide elements (for later use) 
+          .hide
+            //
+               actions for datatables 
+            .dt_gal_actions
+              .btn-group
+                button.btn.dropdown-toggle(data-toggle='dropdown')
+                  | Action
+                  span.caret
+                ul.dropdown-menu
+                  li
+                    a.delete_rows_dt(href='#', data-tableid='dt_gal')
+                      i.icon-trash
+                      | Delete
+                  li
+                    a(href='javascript:void(0)') Lorem ipsum
+                  li
+                    a(href='javascript:void(0)') Lorem ipsum
+            //
+               confirmation box 
+            #confirm_dialog.cbox_content
+              .sepH_c.tac
+                strong Are you sure you want to delete this row(s)?
+              .tac
+                a.btn.btn-gebo.confirm_yes(href='#') Yes
+                a.btn.confirm_no(href='#') No
+      //
+         sidebar 
+      a.sidebar_switch.on_switch.ttip_r(href='javascript:void(0)', title='Hide Sidebar') Sidebar switch
+      .sidebar
+        .antiScroll
+          .antiscroll-inner
+            .antiscroll-content
+              .sidebar_inner
+                form.input-append(action='index.php?uid=1&page=search_page', method='post')
+                  input.search_query.input-medium(autocomplete='off', name='query', size='16', type='text', placeholder='Search...')
+                  button.btn(type='submit')
+                    i.icon-search
+                #side_accordion.accordion
+                  .accordion-group
+                    .accordion-heading
+                      a.accordion-toggle(href='#collapseOne', data-parent='#side_accordion', data-toggle='collapse')
+                        i.icon-folder-close
+                        | Content
+                    #collapseOne.accordion-body.collapse
+                      .accordion-inner
+                        ul.nav.nav-list
+                          li
+                            a(href='javascript:void(0)') Articles
+                          li
+                            a(href='javascript:void(0)') News
+                          li
+                            a(href='javascript:void(0)') Newsletters
+                          li
+                            a(href='javascript:void(0)') Comments
+                  .accordion-group
+                    .accordion-heading
+                      a.accordion-toggle(href='#collapseTwo', data-parent='#side_accordion', data-toggle='collapse')
+                        i.icon-th
+                        | Modules
+                    #collapseTwo.accordion-body.collapse
+                      .accordion-inner
+                        ul.nav.nav-list
+                          li
+                            a(href='javascript:void(0)') Content blocks
+                          li
+                            a(href='javascript:void(0)') Tags
+                          li
+                            a(href='javascript:void(0)') Blog
+                          li
+                            a(href='javascript:void(0)') FAQ
+                          li
+                            a(href='javascript:void(0)') Formbuilder
+                          li
+                            a(href='javascript:void(0)') Location
+                          li
+                            a(href='javascript:void(0)') Profiles
+                  .accordion-group
+                    .accordion-heading
+                      a.accordion-toggle(href='#collapseThree', data-parent='#side_accordion', data-toggle='collapse')
+                        i.icon-user
+                        | Account manager
+                    #collapseThree.accordion-body.collapse
+                      .accordion-inner
+                        ul.nav.nav-list
+                          li
+                            a(href='javascript:void(0)') Members
+                          li
+                            a(href='javascript:void(0)') Members groups
+                          li
+                            a(href='javascript:void(0)') Users
+                          li
+                            a(href='javascript:void(0)') Users groups
+                  .accordion-group
+                    .accordion-heading
+                      a.accordion-toggle(href='#collapseFour', data-parent='#side_accordion', data-toggle='collapse')
+                        i.icon-cog
+                        | Configuration
+                    #collapseFour.accordion-body.collapse
+                      .accordion-inner
+                        ul.nav.nav-list
+                          li.nav-header People
+                          li.active
+                            a(href='javascript:void(0)') Account Settings
+                          li
+                            a(href='javascript:void(0)') IP Adress Blocking
+                          li.nav-header System
+                          li
+                            a(href='javascript:void(0)') Site information
+                          li
+                            a(href='javascript:void(0)') Actions
+                          li
+                            a(href='javascript:void(0)') Cron
+                          li.divider
+                          li
+                            a(href='javascript:void(0)') Help
+                  .accordion-group
+                    .accordion-heading
+                      a.accordion-toggle(href='#collapseLong', data-parent='#side_accordion', data-toggle='collapse')
+                        i.icon-leaf
+                        | Long content (scrollbar)
+                    #collapseLong.accordion-body.collapse
+                      .accordion-inner
+                        | Some text to show sidebar scroll bar
+                        br
+                        | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus rhoncus, orci ac fermentum imperdiet, purus sapien pharetra diam, at varius nibh tellus tristique sem. Nulla congue odio ut augue volutpat congue. Nullam id nisl ut augue posuere ullamcorper vitae eget nunc. Quisque justo turpis, tristique non fermentum ac, feugiat quis lorem. Ut pellentesque, turpis quis auctor laoreet, nibh erat volutpat est, id mattis mi elit non massa. Suspendisse diam dui, fringilla id pretium non, dapibus eget enim. Duis fermentum quam a leo luctus tincidunt euismod sit amet arcu. Duis bibendum ultricies libero sed feugiat. Duis ut sapien risus. Morbi non nulla sit amet eros fringilla blandit id vel augue. Nam placerat ligula lacinia tellus molestie molestie vestibulum leo tincidunt.
+                        | Duis auctor varius risus vitae commodo. Fusce nec odio massa, ut dapibus justo. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur dapibus, mauris sit amet feugiat tempor, nulla diam gravida magna, in facilisis sapien tellus non ligula. Mauris sapien turpis, sodales ac lacinia sit amet, porttitor in lacus. Pellentesque tincidunt malesuada magna, in egestas augue sodales vel. Praesent iaculis sapien at ante sodales facilisis.
+                  .accordion-group
+                    .accordion-heading
+                      a.accordion-toggle(href='#collapse7', data-parent='#side_accordion', data-toggle='collapse')
+                        i.icon-th
+                        | Calculator
+                    #collapse7.accordion-body.collapse.in
+                      .accordion-inner
+                        form#calc(name='Calc')
+                          .formSep.control-group.input-append
+                            input(type='text', style='width: 142px;', name='Input')
+                            button.btn(type='button', name='clear', value='c', onclick='Calc.Input.value = \'\'')
+                              i.icon-remove
+                          .control-group
+                            input.btn.btn-large(type='button', name='seven', value='7', onclick='Calc.Input.value += \'7\'')
+                            input.btn.btn-large(type='button', name='eight', value='8', onclick='Calc.Input.value += \'8\'')
+                            input.btn.btn-large(type='button', name='nine', value='9', onclick='Calc.Input.value += \'9\'')
+                            input.btn.btn-large(type='button', name='div', value='/', onclick='Calc.Input.value += \' / \'')
+                          .control-group
+                            input.btn.btn-large(type='button', name='four', value='4', onclick='Calc.Input.value += \'4\'')
+                            input.btn.btn-large(type='button', name='five', value='5', onclick='Calc.Input.value += \'5\'')
+                            input.btn.btn-large(type='button', name='six', value='6', onclick='Calc.Input.value += \'6\'')
+                            input.btn.btn-large(type='button', name='times', value='x', onclick='Calc.Input.value += \' * \'')
+                          .control-group
+                            input.btn.btn-large(type='button', name='one', value='1', onclick='Calc.Input.value += \'1\'')
+                            input.btn.btn-large(type='button', name='two', value='2', onclick='Calc.Input.value += \'2\'')
+                            input.btn.btn-large(type='button', name='three', value='3', onclick='Calc.Input.value += \'3\'')
+                            input.btn.btn-large(type='button', name='minus', value='-', onclick='Calc.Input.value += \' - \'')
+                          .formSep.control-group
+                            input.btn.btn-large(type='button', name='dot', value='.', onclick='Calc.Input.value += \'.\'')
+                            input.btn.btn-large(type='button', name='zero', value='0', onclick='Calc.Input.value += \'0\'')
+                            input.btn.btn-large(type='button', name='DoIt', value='=', onclick='Calc.Input.value = Math.round( eval(Calc.Input.value) * 1000)/1000')
+                            input.btn.btn-large(type='button', name='plus', value='+', onclick='Calc.Input.value += \' + \'')
+                          | Contributed by
+                          a(href='http://themeforest.net/user/maumao') maumao
+                .push
+              .sidebar_info
+                ul.unstyled
+                  li
+                    span.act.act-warning 65
+                    strong New comments
+                  li
+                    span.act.act-success 10
+                    strong New articles
+                  li
+                    span.act.act-danger 85
+                    strong New registrations
+      script(src='js/jquery.min.js')
+      //
+         smart resize event 
+      script(src='js/jquery.debouncedresize.min.js')
+      //
+         hidden elements width/height 
+      script(src='js/jquery.actual.min.js')
+      //
+         js cookie plugin 
+      script(src='js/jquery.cookie.min.js')
+      //
+         main bootstrap js 
+      script(src='bootstrap/js/bootstrap.min.js')
+      //
+         bootstrap plugins 
+      script(src='js/bootstrap.plugins.min.js')
+      //
+         tooltips 
+      script(src='lib/qtip2/jquery.qtip.min.js')
+      //
+         jBreadcrumbs 
+      script(src='lib/jBreadcrumbs/js/jquery.jBreadCrumb.1.1.min.js')
+      //
+         sticky messages 
+      script(src='lib/sticky/sticky.min.js')
+      //
+         fix for ios orientation change 
+      script(src='js/ios-orientationchange-fix.js')
+      //
+         scrollbar 
+      script(src='lib/antiscroll/antiscroll.js')
+      script(src='lib/antiscroll/jquery-mousewheel.js')
+      //
+         common functions 
+      script(src='js/gebo_common.js')
+      //
+         colorbox 
+      script(src='lib/colorbox/jquery.colorbox.min.js')
+      //
+         datatable 
+      script(src='lib/datatables/jquery.dataTables.min.js')
+      //
+         additional sorting for datatables 
+      script(src='lib/datatables/jquery.dataTables.sorting.js')
+      //
+         tables functions 
+      script(src='js/gebo_tables.js')
+      script
+        $(document).ready(function() {
+        //* show all elements & remove preloader
+        setTimeout('$("html").removeClass("js")',1000);
+        });

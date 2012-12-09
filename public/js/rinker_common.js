@@ -7,7 +7,7 @@
 	$(document).ready(function() {
 		//* search typeahead
 		$('.search_query').typeahead({
-			source: ["repository","이동건","유리상자","지현우","문근영","박은혜","장나라","SELECT * FROM `nate_people` WHERE `name` LIKE '%이동건%'"],
+			source: ["소녀시대","이동건","유리상자","지현우","문근영","박은혜","장나라","레이디 가가","김사랑","아이유","윤아","장동건"],
 			items: 6
 		});
 		//* accordion change actions
@@ -86,12 +86,12 @@
                     $.cookie('gebo_sidebar', null);
                     $('body').removeClass('sidebar_hidden');
                     $('.sidebar_switch').addClass('on_switch').show();
-                    $('.sidebar_switch').attr( 'title', "Hide Sidebar" );
+                    $('.sidebar_switch').attr( 'title', "매뉴 숨기기" );
                 } else {
                     $.cookie('gebo_sidebar', 'hidden');
                     $('body').addClass('sidebar_hidden');
                     $('.sidebar_switch').addClass('off_switch');
-                    $('.sidebar_switch').attr( 'title', "Show Sidebar" );
+                    $('.sidebar_switch').attr( 'title', "매뉴 보이" );
                 }
 				gebo_sidebar.info_box();
 				gebo_sidebar.update_scroll();

@@ -4,11 +4,30 @@ block content
 	#contentwrapper
 		.main_content
 			.row-fluid
-				h1 데이터 수집
-				p
-					form(method="post", action="http://127.0.0.1:3100/natelist")
-						input(name='s', type='hidden', value=1)
-						input(name='e', type='hidden', value=2)
-						button(type="submit", name="submit").label.label-warning Nate list scraper
-					a.btn(href="/search?q=") 전체 보기 
+
+				b people.nate.com list scrap
+				div
+					| Start:
+					input#nate_listStart(type='text', value='')
+				div
+					| end:
+					input#nate_listEnd(type='text', value='')
+				div
+					input#nate_listScrap(type='button', value='리스트 수')
+				br
+				b people.nate.com person scrap
+				div
+					| Start:
+					input#nate_personStart(type='text', value='')
+				div
+					| end:
+					input#nate_personEnd(type='text', value='')
+				div
+					input#nate_personScrap(type='button', value='인물 수집')
+				br					
+				b Console:
+				ul#console
+	script(src='http://localhost:3100/socket.io/socket.io.js')
+	script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js')
+	script(src='/ws/scraper.js')
 	include ../layout/sidebar

@@ -1,65 +1,63 @@
 extends layout/layout
 
 block content
-	#contentwrapper
-		.main_content
-			.row-fluid
-			if following.length
-				p #{user.name} is following #{following.length} users:
-				// TODO should say 'user' if only one! ;)
-				ul.users
-					for other in following
-						li.user
-							form(action='/graph/#{user.id}/unfollow', method='POST')
-								a(href='/graph/#{other.id}') #{other.name}
-								input(type='hidden', name='user[id]', value='#{other.id}')
-								input(type='submit', class='unfollow', value='x')
-			else
-				p #{user.name} isn't following anyone currently.
+	#contentwrapper: .main_content
+		.row-fluid
+		if following.length
+			p #{user.name} is following #{following.length} users:
+			// TODO should say 'user' if only one! ;)
+			ul.users
+				for other in following
+					li.user
+						form(action='/graph/#{user.id}/unfollow', method='POST')
+							a(href='/graph/#{other.id}') #{other.name}
+							input(type='hidden', name='user[id]', value='#{other.id}')
+							input(type='submit', class='unfollow', value='x')
+		else
+			p #{user.name} isn't following anyone currently.
 
-			if following.length
-				p #{user.name} is following #{following.length} users:
-				// TODO should say 'user' if only one! ;)
-				ul.users
-					for other in following
-						li.user
-							form(action='/graph/#{user.id}/unfollow', method='POST')
-								a(href='/graph/#{other.id}') #{other.name}
-								input(type='hidden', name='user[id]', value='#{other.id}')
-								input(type='submit', class='unfollow', value='x')
-			else
-				p #{user.name} isn't following anyone currently.
+		if following.length
+			p #{user.name} is following #{following.length} users:
+			// TODO should say 'user' if only one! ;)
+			ul.users
+				for other in following
+					li.user
+						form(action='/graph/#{user.id}/unfollow', method='POST')
+							a(href='/graph/#{other.id}') #{other.name}
+							input(type='hidden', name='user[id]', value='#{other.id}')
+							input(type='submit', class='unfollow', value='x')
+		else
+			p #{user.name} isn't following anyone currently.
 
-				
-			if others.length
-				form(action='/graph/#{user.id}/follow', method='POST')
-					p Add someone for #{user.name} to follow:
-					label
-						select(name='user[id]', required)
-							option(value='')
-							for user in others
-								option(value='#{user.id}') #{user.name}
-					input(type='submit', value='Follow')
-				form(action='/graph/#{user.id}/music', method='POST')
-					p Add someone for #{user.name} to follow:
-					label
-						select(name='user[id]', required)
-							option(value='')
-							for user in others
-								option(value='#{user.id}') #{user.name}
-					input(type='submit', value='Music')						
-			else
-				p There's no one else left for #{user.name} to follow!
+		if others.length
+			form(action='/graph/#{user.id}/follow', method='POST')
+				p Add someone for #{user.name} to follow:
+				label
+					select(name='user[id]', required)
+						option(value='')
+						for user in others
+							option(value='#{user.id}') #{user.name}
+				input(type='submit', value='Follow')
+			form(action='/graph/#{user.id}/music', method='POST')
+				p Add someone for #{user.name} to follow:
+				label
+					select(name='user[id]', required)
+						option(value='')
+						for user in others
+							option(value='#{user.id}') #{user.name}
+				input(type='submit', value='Music')						
+		else
+			p There's no one else left for #{user.name} to follow!
 
-				form(action='/graph/#{user.id}', method='POST')
-					p Edit this user:
-					input(type='text', name='name', placeholder='#{user.name}', required)
-					input(type='submit', value='Update')
+			form(action='/graph/#{user.id}', method='POST')
+				p Edit this user:
+				input(type='text', name='name', placeholder='#{user.name}', required)
+				input(type='submit', value='Update')
 
-				form(action='/graph/#{user.id}', method='POST', onsubmit='return confirm("Are you sure?");')
-					p And if you're feeling destructive…
-					input(type='hidden', name='_method', value='DELETE')
-					input(type='submit', value='Delete User')
-						
-				a.back_link.btn.btn-small(herf="javascript:history.back()") Go back 
+			form(action='/graph/#{user.id}', method='POST', onsubmit='return confirm("Are you sure?");')
+				p And if you're feeling destructive…
+				input(type='hidden', name='_method', value='DELETE')
+				input(type='submit', value='Delete User')
+					
+			a.back_link.btn.btn-small(herf="javascript:history.back()") Go back 
 	include layout/sidebar

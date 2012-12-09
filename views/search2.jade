@@ -1,0 +1,30 @@
+extends layout/layout
+
+block content
+	#contentwrapper: .main_content
+		nav
+			#jCrumbs.breadCrumb.module
+				ul
+					li
+						a(href='#')
+							i.icon-home
+					li
+						a(href='#') #{title}
+					li
+						a(href='#') #{query}
+		.row-fluid
+			.span12
+				h3.heading
+					| #{query}의 검색 결과
+					small  (  #{result} )
+				include tmeplate/person
+						//li.thumbnail
+							a(href='gallery/Image19.jpg', title='Image_19 title long title long title long')
+								img(src='/gallery/Image19_tn.jpg', alt='')
+							p
+								a(href='javascript:void(0)', title='Remove')
+									i.icon-trash
+								a(href='javascript:void(0)', title='Edit')
+									i.icon-pencil
+								span Test set
+	include layout/sidebar

@@ -4,34 +4,33 @@ block prepend nav
   selected = 'userlist'
 
 block content
-  #contentwrapper
-    .main_content
-      .row-fluid
-        div.page-header
-          h1 회원 목록
-          p 전체회원: #{Object.keys(userlist).length}
-          a(href='/users/new').btn.btn-primary: strong 사용자 추가
+  #contentwrapper: .main_content
+    .row-fluid
+      div.page-header
+        h1 회원 목록
+        p 전체회원: #{Object.keys(userlist).length}
+        a(href='/users/new').btn.btn-primary: strong 사용자 추가
 
-        table.table
-          thead
+      table.table
+        thead
+          tr
+            th(scope="col"): input(type="checkbox").all
+            th(scope="col") 이름
+            th(scope="col") 이메일
+            th(scope="col") 아이디
+            th(scope="col") #Salted Password
+            th(scope="col") &nbsp;
+        tbody
+          each user in userlist
             tr
-              th(scope="col"): input(type="checkbox").all
-              th(scope="col") 이름
-              th(scope="col") 이메일
-              th(scope="col") 아이디
-              th(scope="col") #Salted Password
-              th(scope="col") &nbsp;
-          tbody
-            each user in userlist
-              tr
-                td: input(type="checkbox")
-                td= user.name
-                td= user.email
-                td: a(href='/user/#{user.id}')= user.id
-                td: span.pw= user.password
-                td
-                  form(method="post", action="/dropuser").no-margin
-                    input(name='id', type='hidden', value=user.id)
-                    button(type="submit", name="submit").label.label-warning 삭제
+              td: input(type="checkbox")
+              td= user.name
+              td= user.email
+              td: a(href='/user/#{user.id}')= user.id
+              td: span.pw= user.password
+              td
+                form(method="post", action="/dropuser").no-margin
+                  input(name='id', type='hidden', value=user.id)
+                  button(type="submit", name="submit").label.label-warning 삭제
         div.ctrl: button(type="submit").btn.btn-danger: strong 전체 삭제
   include ../layout/sidebar

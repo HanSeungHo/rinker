@@ -1,0 +1,43 @@
+#large_grid.wmk_grid
+	ul
+		each row in rows
+			li.thumbnail
+				each val, key in row
+					if( val!="" && key!='id' && key!='reg_date' &&  key!='error' &&  key!='parse' &&  key!='_typeCast' &&  key!='homepage' && key!='cyworld')
+						case key
+							when "thumb"
+								a(href='/search?q=#{row.name}')
+									img(src=val)
+								p
+									a(href='javascript:void(0)', title='Remove')
+										i.icon-trash
+									a(href='javascript:void(0)', title='Edit')
+										i.icon-pencil
+							when "name"
+								span #{val}
+							when "real_name"
+								p 본명 : #{val}
+							when "birth"
+								p 생일: #{val}
+							when "review"
+								p 데뷔: #{val}													
+							when "job"
+								p 직업: #{val}
+							when "team"
+								p 그룹: #{val}
+							when "agency"
+								p 소속사: #{val}
+							when "body"
+								p 신체: #{val}
+							when "comunity"
+								p 팬클럽: #{val}
+							when "hobby"
+								p 취미: #{val}
+							when "specialty"
+								p 특기: #{val}
+							when "birthplace"
+								p 출생지: #{val}
+							when "family"
+								p 가족: #{val}																																																																																																																																																																																				
+							default
+								p #{key}: #{val}

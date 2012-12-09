@@ -1,23 +1,22 @@
 extends layout/layout
 
 block content
-	#contentwrapper
-		.main_content
-			.row-fluid
-				h1 Users
+	#contentwrapper: .main_content
+		.row-fluid
+			h1 그래프색인 (node)
 
-				if users.length
-					p Here are the current users:
-					ul.users
-						for user in users
-							li.user
-								a(href='/graph/#{user.id}') #{user.name}
-				else
-					p There are no users currently.
+			if users.length
+				p 노드 목록:
+				ul.users
+					for user in users
+						li.user
+							a(href='/graph/#{user.id}') #{user.name}
+			else
+				p 노드가 없습니다..
 
-				form(action='', method='POST')
-					p Create a new user:
-					input(type='text', name='name', placeholder='Name', required)
-					input(type='submit', value='Create')
-				a.back_link.btn.btn-small(herf="javascript:history.back()") Go back 
+			form(action='', method='POST')
+				p 추가 할 노드를 입력하세요:
+				input(type='text', name='name', placeholder='Name', required)
+				input(type='submit', value='Create')
+			a.back_link.btn.btn-small(herf="javascript:history.back()") Go back 
 	include layout/sidebar

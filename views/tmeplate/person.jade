@@ -1,0 +1,49 @@
+case view
+	when 'list'
+		.row-fluid
+			.span12
+				table#dt_gal.table.table-bordered.table-striped.table_vam
+					thead
+						tr
+							th.table_checkbox
+								input.select_rows(type='checkbox', name='select_rows', data-tableid='dt_gal')
+							th 이미지
+							th 이름
+							th 직업
+							th 생일
+							th 소속사
+							th 관련 URL
+					tbody
+						each row in rows
+							tr
+								td
+									input.row_sel(type='checkbox', name='row_sel')
+								td(style='width: 60px;')
+									img(alt=row.name, src=row.thumb, style='height: 60px;')
+								td
+									a(href='/search/person/#{row.id}') #{row.name}
+								td #{row.job}
+								td #{row.birth}
+								td #{row.agency} 						
+								td
+									a.btn.btn-small(href='/link?url=#{row.nate_url}') 네이트 인물
+	default
+		#large_grid.wmk_grid
+			ul
+				each row in rows
+					li.thumbnail
+						each val, key in row
+							if( val!="" && key!='id' && key!='reg_date' &&  key!='error' &&  key!='parse' &&  key!='_typeCast' &&  key!='homepage' && key!='cyworld')
+								case key
+									when "thumb"
+										a(href='/search/person/#{row.id}')
+											img(src=val)
+										p
+											a(href='javascript:void(0)', title='Remove')
+												i.icon-trash
+											a(href='javascript:void(0)', title='Edit')
+												i.icon-pencil
+									when "name"
+										span #{val}
+									default
+										p #{key}: #{val}								

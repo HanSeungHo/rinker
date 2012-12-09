@@ -1,21 +1,20 @@
 extends ../layout/layout
 
 block content
-  #contentwrapper
-    .main_content
-      .row-fluid
-        div.page-header
-          h1= title
-          p= content
-        table(style='width: 300px').table.table-bordered
-          tr
-            td: strong 이름 
-            td #{userInfo.name}
-          tr
-            td: strong 이메일
-            td #{userInfo.email}
-          tr
-            td: strong 아이디 
-            td #{userInfo.id}
-        a(href='/users').btn 목록보기
+  #contentwrapper: .main_content
+    .row-fluid
+      div.page-header
+        h1= title
+        p= content
+      table(style='width: 300px').table.table-bordered
+        tr
+          td: strong 이름 
+          td #{userInfo.name}
+        tr
+          td: strong 이메일
+          td #{userInfo.email}
+        tr
+          td: strong 아이디 
+          td #{userInfo.id}
+      a(href='/users').btn 목록보기
   include ../layout/sidebar

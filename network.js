@@ -17,17 +17,6 @@ var //net = require('net'),
 
 var mysql = require("./db/mysql");
 
-
-var ioc = require('socket.io-client');
-var serverUrl = 'http://localhost:3002/ns';
-
-var conn = ioc.connect(serverUrl);
-
-var p1 = 'test';
-conn.emit('call', p1, function(resp, data) {
-    console.log('server sent resp code ' + resp);
-});
-
 // Websocket Server
 io.sockets.on('connection', function(client) {
 	console.log('Socket.io client connected'); 

@@ -4,37 +4,36 @@ block prepend nav
   selected = 'userlist'
 
 block content
-  #contentwrapper
-    .main_content
-      .row-fluid
-        form(method="post", action="/wikis/note/user/#{user.id}").span9.form-horizontal
-          div.page-header
-            h1 사용자 정보 수
+  #contentwrapper: .main_content
+    .row-fluid
+      form(method="post", action="/wikis/note/user/#{user.id}").span9.form-horizontal
+        div.page-header
+          h1 사용자 정보 수
 
-          div.control-group
-            label(for="name").control-label 이름
-            div.controls
-              input(type="text", name="name", id="name", value="#{user.name}", disabled).uneditable-input
+        div.control-group
+          label(for="name").control-label 이름
+          div.controls
+            input(type="text", name="name", id="name", value="#{user.name}", disabled).uneditable-input
 
-          div.control-group
-            label(for="id").control-label ID
-            div.controls
-              input(type="text", name="id", id="id", value="#{user.id}", disabled).uneditable-input
+        div.control-group
+          label(for="id").control-label ID
+          div.controls
+            input(type="text", name="id", id="id", value="#{user.id}", disabled).uneditable-input
 
-          div.control-group
-            label(for="email").control-label 이메일
-            div.controls
-              input(type="text", name="email", id="email", value="#{user.email}", required)
+        div.control-group
+          label(for="email").control-label 이메일
+          div.controls
+            input(type="text", name="email", id="email", value="#{user.email}", required)
 
-          div.control-group
-            label(for="previousPassword").control-label 현재 비밀번호
-            div.controls
-              input(type="password", name="previousPassword", id="previousPassword")
+        div.control-group
+          label(for="previousPassword").control-label 현재 비밀번호
+          div.controls
+            input(type="password", name="previousPassword", id="previousPassword")
 
-          div.control-group
-            label(for="newPassword").control-label 새로운 비밀번호
-            div.controls
-              input(type="password", name="newPassword", id="newPassword", placeholder="4자리 이상으로 입력해 주세요.")
+        div.control-group
+          label(for="newPassword").control-label 새로운 비밀번호
+          div.controls
+            input(type="password", name="newPassword", id="newPassword", placeholder="4자리 이상으로 입력해 주세요.")
 
-          button(type="submit").btn.btn-primary: strong 저장
+        button(type="submit").btn.btn-primary: strong 저장
   include ../layout/sidebar

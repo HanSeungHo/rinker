@@ -14,13 +14,13 @@ a.sidebar_switch.on_switch.ttip_r(href='javascript:void(0)', title='Hide Sidebar
 								.accordion-inner
 									ul.nav.nav-list
 										li
-											a(href='javascript:void(0)') 인물
+											a(href='/') 인물
 										li
-											a(href='javascript:void(0)') 영화
+											a(href="javascript:alert('데이터 수집중')") 영화
 										li
-											a(href='javascript:void(0)') 음악
+											a(href="javascript:alert('데이터 수집중')") 음악
 										li
-											a(href='javascript:void(0)') 방송
+											a(href="javascript:alert('데이터 수집중')") 방송
 						.accordion-group
 							.accordion-heading
 								a.accordion-toggle(href='#collapseTwo', data-parent='#side_accordion', data-toggle='collapse')
@@ -30,11 +30,10 @@ a.sidebar_switch.on_switch.ttip_r(href='javascript:void(0)', title='Hide Sidebar
 								.accordion-inner
 									ul.nav.nav-list
 										li
-											a(href='javascript:void(0)') 다이나믹 그리드
+											//a(href="#",onclick="$.post('/view?v=grid');window.location.reload()") 다이나믹 그리드
+											a(href='/view?v=grid') 다이나믹 그리드
 										li
-											a(href='javascript:void(0)') 목록
-										li
-											a(href='javascript:void(0)') 그리드
+											a(href='/view?v=list') 목록
 						.accordion-group
 							.accordion-heading
 								a.accordion-toggle(href='#collapseThree', data-parent='#side_accordion', data-toggle='collapse')
@@ -44,13 +43,23 @@ a.sidebar_switch.on_switch.ttip_r(href='javascript:void(0)', title='Hide Sidebar
 								.accordion-inner
 									ul.nav.nav-list
 										li
-											a(href='javascript:void(0)') 연예인
+											a(href='/search/job?q=탤런트') 탤런트
 										li
-											a(href='javascript:void(0)') 영화인
+											a(href='/search/job?q=영화배우') 영화인
 										li
-											a(href='javascript:void(0)') 방송인
+											a(href='/search/job?q=가수') 가수
 										li
-											a(href='javascript:void(0)') 기타
+											a(href='/search/job?q=영화') 영화인
+										li
+											a(href='/search/job?q=모델') 모델
+										li
+											a(href='/search/job?q=기획') 기획자
+										li
+											a(href='/search/job?q=탤런트') 탤런트
+										li
+											a(href='/search/job?q=미스코리아') 미스코리아
+										li
+											a(href='/search/job?q=개그맨') 개그맨																																																							
 						.accordion-group
 							.accordion-heading
 								a.accordion-toggle(href='#collapseFour', data-parent='#side_accordion', data-toggle='collapse')
@@ -59,13 +68,13 @@ a.sidebar_switch.on_switch.ttip_r(href='javascript:void(0)', title='Hide Sidebar
 							#collapseFour.accordion-body.collapse
 								.accordion-inner
 									ul.nav.nav-list
-										li
-											form.input-append(action='/sql', method='get')
-												select(name='use',style='width:160px')
-													option repository
-												input.search_query.input-medium(autocomplete='off', name='sql', size='16', type='text', placeholder='SQL QUERY')
-												button.btn(type='submit')
-													i.icon-search	
+										//- li
+										//- 	form.input-append(action='/sql', method='get')
+										//- 		select(name='use',style='width:160px')
+										//- 			option repository
+										//- 		input.search_query.input-medium(autocomplete='off', name='sql', size='16', type='text', placeholder='SQL QUERY')
+										//- 		button.btn(type='submit')
+										//- 			i.icon-search	
 										li.nav-header 회원 관리
 										li
 											a(href='/users') 사용자 목록
@@ -90,21 +99,23 @@ a.sidebar_switch.on_switch.ttip_r(href='javascript:void(0)', title='Hide Sidebar
 							.accordion-heading
 								a.accordion-toggle(href='#collapseLong', data-parent='#side_accordion', data-toggle='collapse')
 									i.icon-leaf
-									|  추천 검색어
+									|  살펴보기
 							#collapseLong.accordion-body.collapse
 								.accordion-inner
 									| 아이유가 부른 노래
+									br
+									a(href='/link?url=http://mnet.interest.me/special/4873') 인터넷 기사
 									br
 									| 제작중
 					.push
 				.sidebar_info
 					ul.unstyled
 						li
-							span.act.act-warning 65
-							strong 새로운 인물
+							span.act.act-warning 72,731
+							strong 인물 정보
 						li
-							span.act.act-success 10
-							strong 새로운 영화
+							span.act.act-success 10,234
+							strong 영화 정보
 						li
-							span.act.act-danger 85
-							strong 새로운 음											
+							span.act.act-danger 85,203
+							strong 음악 정보											

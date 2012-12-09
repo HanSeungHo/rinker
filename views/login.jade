@@ -1,19 +1,131 @@
 extends layout/layout
 
 block content
-  #contentwrapper
-    .main_content
-      .row-fluid
-        form(method="post", action="/login").login.row
-          if typeof return_to != 'undefined'
-            input(type="hidden", name="return_to", value=return_to)
-          fieldset.well.span4.offset4
-            if typeof flashMessage != 'undefined'
-              div.alert.alert-error
-                != flashMessage
-                button(type="button", data-dismiss="alert").close x
-            div.item: input(type="text", name="id", required, placeholder="아이디", title="아이디")
-            div.item: input(type="password", name="password", required, placeholder="패스워드", title="패스워드")
-            div.enter
-              button(type="submit").btn.btn-primary: strong= "로그인"
-  include layout/sidebar
+	#contentwrapper: .main_content
+		.login_page: .login_box
+			form#login_form(action='/login', method='post')
+				.top_b Rinker login
+				if message != ""
+					.alert.alert-info.alert-login
+						| #{message}
+				.alert.alert-info.alert-login
+					| 아이디와 패스워드를 입력해주세요.
+				.cnt_b
+					.formRow
+						.input-prepend
+							span.add-on
+								i.icon-user
+							input#username(type='text', name='id', placeholder='ID')
+					.formRow
+						.input-prepend
+							span.add-on
+								i.icon-lock
+							input#password(type='password', name='password', placeholder='Password')
+					.formRow.clearfix
+						label.checkbox
+							input(type='checkbox')
+							| 자동 로그인
+				.btm_b.clearfix
+					button.btn.btn-inverse.pull-right(type='submit') 로그인
+					span.link_reg
+						a(href='#reg_form') 회원 가입이 안되셨나요? 회원가입
+			form#pass_form(action='/users/lost', method='post', style='display: none;')
+				.top_b Can't sign in?
+				.alert.alert-info.alert-login
+					| 이메일을 입력해주세요. 비밀번호가 전송됩니다.
+				.cnt_b
+					.formRow.clearfix
+						.input-prepend
+							span.add-on @
+							input(type='text', placeholder='Your email address')
+				.btm_b.tac
+					button.btn.btn-inverse(type='submit') Request New Password
+			form#reg_form(action='/users/new', method='post', style='display: none;')
+				.top_b Sign up to Rinker
+				.alert.alert-login
+					| By filling in the form bellow and clicking the "Sign Up" button, you accept and agree to
+					a(data-toggle='modal', href='#terms') Terms of Service
+					| .
+				#terms.modal.hide.fade(style='display: none;')
+					.modal-header
+						a.close(data-dismiss='modal') ×
+						h3 Terms and Conditions
+						p
+							| Nulla sollicitudin pulvinar enim, vitae mattis velit venenatis vel. Nullam dapibus est quis lacus tristique consectetur. Morbi posuere vestibulum neque, quis dictum odio facilisis placerat. Sed vel diam ultricies tortor egestas vulputate. Aliquam lobortis felis at ligula elementum volutpat. Ut accumsan sollicitudin neque vitae bibendum. Suspendisse id ullamcorper tellus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vestibulum at augue lorem, at sagittis dolor. Curabitur lobortis justo ut urna gravida scelerisque. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam vitae ligula elit.
+							| Pellentesque tincidunt mollis erat ac iaculis. Morbi odio quam, suscipit at sagittis eget, commodo ut justo. Vestibulum auctor nibh id diam placerat dapibus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Suspendisse vel nunc sed tellus rhoncus consectetur nec quis nunc. Donec ultricies aliquam turpis in rhoncus. Maecenas convallis lorem ut nisl posuere tristique. Suspendisse auctor nibh in velit hendrerit rhoncus. Fusce at libero velit. Integer eleifend sem a orci blandit id condimentum ipsum vehicula. Quisque vehicula erat non diam pellentesque sed volutpat purus congue. Duis feugiat, nisl in scelerisque congue, odio ipsum cursus erat, sit amet blandit risus enim quis ante. Pellentesque sollicitudin consectetur risus, sed rutrum ipsum vulputate id. Sed sed blandit sem. Integer eleifend pretium metus, id mattis lorem tincidunt vitae. Donec aliquam lorem eu odio facilisis eu tempus augue volutpat.
+					.modal-footer
+						a.btn(data-dismiss='modal', href='#') 동의
+						a.btn(data-dismiss='modal', href='#') 거절
+				.cnt_b
+					.formRow
+						.input-prepend
+							span.add-on
+								i.icon-user
+							input(type='text', placeholder='ID')
+					.formRow
+						.input-prepend
+							span.add-on
+								i.icon-lock
+							input(type='text', placeholder='Password')
+					.formRow
+						.input-prepend
+							span.add-on @
+							input(type='text', placeholder='이메일')
+						small
+							| The e-mail address is not made public and will only be used if you wish to receive a new password.
+				.btm_b.tac
+					button.btn.btn-inverse(type='submit') 회원가입
+			.links_b.links_btm.clearfix
+				span.linkform
+					a(href='#pass_form') Forgot password?
+				span.linkform(style='display: none;')
+					| Never mind,
+					a(href='#login_form') send me back to the sign-in screen
+	script(src='/js/jquery.min.js')
+	script(src='/js/jquery.actual.min.js')
+	script(src='/lib/validation/jquery.validate.min.js')
+	script(src='/bootstrap/js/bootstrap.min.js')
+	script
+		$(document).ready(function(){
+		//* boxes animation
+		form_wrapper = $('.login_box');
+		$('.linkform a,.link_reg a').on('click',function(e){
+		var target	= $(this).attr('href'),
+		target_height = $(target).actual('height');
+		$(form_wrapper).css({
+		'height'		: form_wrapper.height()
+		});
+		$(form_wrapper.find('form:visible')).fadeOut(400,function(){
+		form_wrapper.stop().animate({
+		height	: target_height
+		},500,function(){
+		$(target).fadeIn(400);
+		$('.links_btm .linkform').toggle();
+		$(form_wrapper).css({
+		'height'		: ''
+		});
+		});
+		});
+		e.preventDefault();
+		});
+		//* validation
+		$('#login_form').validate({
+		onkeyup: false,
+		errorClass: 'error',
+		validClass: 'valid',
+		rules: {
+		username: { required: true, minlength: 3 },
+		password: { required: true, minlength: 3 }
+		},
+		highlight: function(element) {
+		$(element).closest('div').addClass("f_error");
+		},
+		unhighlight: function(element) {
+		$(element).closest('div').removeClass("f_error");
+		},
+		errorPlacement: function(error, element) {
+		$(element).closest('div').append(error);
+		}
+		});
+		});
+	include layout/sidebar
