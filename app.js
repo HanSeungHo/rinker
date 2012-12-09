@@ -22,6 +22,7 @@ var express = require('express')
 	, graph = require('./routes/graph')
 	, auth = require('./routes/auth')
 	, http = require('http')
+	, flash = require('connect-flash')
 	, path = require('path');
 
 var app = express();
@@ -36,6 +37,7 @@ app.configure(function(){
 	app.use(express.bodyParser());
 	app.use(express.methodOverride());  
 	app.use(express.cookieParser('Rinker session'));
+	app.use(flash());
 	app.use(express.session());
 	app.use(app.router);
 	app.use(express.static(path.join(__dirname, 'public')));
@@ -54,6 +56,7 @@ app.configure('development', function(){
 
 // Guest auth
 function loadUser(req, res, next) {
+	res.locals.view = req.session.view;
 	if (req.session.user) {
 		res.locals.user = req.session.user;
 		next();
@@ -65,6 +68,7 @@ function loadUser(req, res, next) {
 
 // Admin auth
 function loadAdmin(req, res, next) {
+	res.locals.view = req.session.view;
 	if (req.session.user) {
 		res.locals.user = req.session.user;
 		next();
@@ -74,14 +78,28 @@ function loadAdmin(req, res, next) {
 };
 
 app.get('/actor', loadUser, search.actor);
+
 // Page
-app.get('/', loadUser, routes.index);
+//app.get('/', loadUser, routes.index);
+app.get('/', loadUser, search.query);
+app.get('/link', loadUser, routes.iframe);
+app.get('/under', loadUser, routes.under);
 app.get('/scraper', loadAdmin, routes.scraper);
 
 // Search
+app.post('/view', search.view);
+app.get('/view', search.view);
 app.get('/search', loadUser, search.query);
+app.get('/search/person/:id', loadUser, search.person);
+app.get('/search/movie/:id', loadUser, search.movie);
+app.get('/search/music/:id', loadUser, search.music);
+
+app.get('/search/job', loadUser, search.job);
+app.get('/search/actor', loadUser, search.actor);
 app.get('/socket', loadUser, search.socket);
 app.get('/sql', loadUser, search.sql);
+app.get('/search/help', loadUser, search.help);
+app.get('/search/error', loadUser, search.error);
 
 // Login & Logout
 app.get('/login', loadUser, auth.login);
@@ -106,9 +124,6 @@ app.del('/graph/:id', loadAdmin, graph.del);
 app.post('/graph/:id/follow', loadAdmin, graph.follow);
 app.post('/graph/:id/music', loadAdmin, graph.music);
 app.post('/graph/:id/unfollow', loadAdmin, graph.unfollow);
-
-// Error page
-app.get('/error', loadUser, search.error);
 
 // Create server
 http.createServer(app).listen(app.get('port'), function(){
