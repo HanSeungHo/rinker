@@ -4,11 +4,12 @@ exports.MYSQL = {
 		host : 'ami.hansh.kr',
 		port : '3406',
 		user : 'test',
-		password : 'ttest'
+		password : 'ttest',
+		debug : false
 	},
 	PERSON : {
 		DB    : 'repository',
-		TABLE : 'nate_people',
+		TABLE : 'people',
 		LIMIT : 40
 	},
 	MUSIC : {
@@ -18,6 +19,12 @@ exports.MYSQL = {
 	MOVIE : {
 		DB    : 'repository',
 		TABLE : 'nate_people'
+	},
+	MAIN : {
+		DB : 'ent',
+		MUSIC : 'music',
+		MOVIE : 'movie',
+		PERSON : 'person',
 	},
 	QUERY : {
 		DB    : 'log',
