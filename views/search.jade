@@ -17,6 +17,11 @@ block content
 					small  (  #{result} )
 				include tmeplate/person
 	include layout/sidebar
+	script(src='http://localhost:3001/socket.io/socket.io.js')
+	script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js')
+	script
+		var socket  = io.connect('http://localhost:3001');
+	script(src='/ws/page.js')	
 	//- script(src='/js/jquery.min.js')
 	//- // colorbox 
 	//- script(src='/lib/colorbox/jquery.colorbox.min.js')

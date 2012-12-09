@@ -3,7 +3,8 @@ var client = new Array();
 
 var //net = require('net'),
     Socket = require('net').Socket,
-    io = require('socket.io').listen(3001);
+    io = require('socket.io').listen(3001),
+    mysql = require("./db/mysql");
 
 // var SERVER = {
 // 	//192.168.11.29
@@ -15,39 +16,48 @@ var //net = require('net'),
 //   PORT : 3100
 // }
 
-var mysql = require("./db/mysql");
+
+
+// Debug level
+io.set('log level', 1);
 
 // Websocket Server
 io.sockets.on('connection', function(client) {
 	console.log('Socket.io client connected'); 
 
-	// C# recive
-	client.on('query', function (data) {
-		console.log(data);
-	});
-
-	//광해 
-	client.on('actor', function(data) {
-		mysql.actor(data.query, function(rows) {
-			client.emit('result', rows);
+	client.on('get page', function(page) {
+		mysql.getQuery('나', page, function(data) {
+			client.emit('page', data);
 		});
 	});
 
-	// Client(web browser) send
-	mysql.get_employees(function(employees) {
-		client.emit('populate', employees);
-	});
+	// // C# recive
+	// client.on('query', function (data) {
+	// 	console.log(data);
+	// });
+
+	// //광해 
+	// client.on('actor', function(data) {
+	// 	mysql.actor(data.query, function(rows) {
+	// 		client.emit('result', rows);
+	// 	});
+	// });
+
+	// // Client(web browser) send
+	// mysql.get_employees(function(employees) {
+	// 	client.emit('populate', employees);
+	// });
 	
-	// Cocket server to webbrowser
-	client.on('add employee', function(data) {
-		// create employee, when its done repopulate employees on client
-		mysql.add_employee(data, function(lastId) {
-			// repopulate employees on client
-			mysql.get_employees(function(employees) {
-				client.emit('populate', employees);
-			});
-		});
-	});
+	// // Cocket server to webbrowser
+	// client.on('add employee', function(data) {
+	// 	// create employee, when its done repopulate employees on client
+	// 	mysql.add_employee(data, function(lastId) {
+	// 		// repopulate employees on client
+	// 		mysql.get_employees(function(employees) {
+	// 			client.emit('populate', employees);
+	// 		});
+	// 	});
+	// });
 });
 
 

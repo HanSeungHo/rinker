@@ -1,5 +1,5 @@
-var mysql = require('../db/mysql');
-
+var mysql = require('../db/mysql'),
+		CONFIG = require('../config/config');
 // /search
 exports.query = function(req, res){
 	var query = req.param('q');
@@ -7,7 +7,7 @@ exports.query = function(req, res){
 		// // SQL LIKE fillter
 		// query=unescape(query).replace('!','');
 		// get Query
-		mysql.getQuery(query, function(rows) {
+		mysql.getQuery(query, 0, function(rows) {
 			console.log(query);
 			if (rows.length) {
 				res.render('search', { 
@@ -22,7 +22,7 @@ exports.query = function(req, res){
 		});
 		mysql.logQuery(query);
 	}else{
-		mysql.getAll(function(rows) {
+		mysql.getRandom(function(rows) {
 				res.render('search', { 
 					title: 'Rinker - 소셜 그래프 인물검색',
 					query: '전체',

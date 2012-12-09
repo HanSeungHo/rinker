@@ -13,7 +13,7 @@ block content
 					| end:
 					input#nate_listEnd(type='text', value='')
 				div
-					input#nate_listScrap(type='button', value='리스트 수')
+					input#nate_listScrap(type='button', value='리스트 수집')
 				br
 				b people.nate.com person scrap
 				div
@@ -29,5 +29,7 @@ block content
 				ul#console
 	script(src='http://localhost:3100/socket.io/socket.io.js')
 	script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js')
+	script
+		var socket  = io.connect(#{ws});
 	script(src='/ws/scraper.js')
 	include ../layout/sidebar

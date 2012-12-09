@@ -3,6 +3,39 @@ var CONFIG = require('../config/config'),
 		client = mysql.createConnection(CONFIG.MYSQL.CLIENT);
 
 
+var page = function(page) {
+	console.log('page:',page)
+	return '30';
+}
+
+// Search query
+exports.getQuery = function(query, page, calback) {
+	var s,e;
+	if(page){
+		s=(CONFIG.MYSQL.PERSON.LIMIT*page)+1;
+		e=CONFIG.MYSQL.PERSON.LIMIT+s-1;
+	}else{
+		s=0;
+		e=CONFIG.MYSQL.PERSON.LIMIT;
+	}
+	client.query("USE " + CONFIG.MYSQL.PERSON.DB); 
+	client.query(
+		"SELECT * FROM `" + CONFIG.MYSQL.PERSON.TABLE + "` WHERE `name` LIKE  '%" + query + "%' LIMIT " + s + "," + e
+		, function(err, results, fields) {
+			for (x in results){
+				if (results[x].thumb){
+					results[x].thumb=results[x].thumb.replace("_40_50","");
+				}
+			}  
+
+			if (err) {
+				console.log(err);
+			}
+
+			calback(results);
+	});
+}
+
 // Custom format
 //client.query("UPDATE posts SET title = :title", { title: "Hello MySQL" });
 client.config.queryFormat = function (query, values) {
@@ -90,27 +123,6 @@ exports.getJob = function(job, calback) {
 	});
 }
 
-
-// Search query
-exports.getQuery = function(query, calback) {
-	client.query("USE " + CONFIG.MYSQL.PERSON.DB); 
-	client.query(
-		"SELECT * FROM `" + CONFIG.MYSQL.PERSON.TABLE + "` WHERE `name` LIKE  '%" + query + "%' LIMIT 0, " + CONFIG.MYSQL.PERSON.LIMIT
-		, function(err, results, fields) {
-			for (x in results){
-				if (results[x].thumb){
-					results[x].thumb=results[x].thumb.replace("_40_50","");
-				}
-			}  
-
-			if (err) {
-				console.log(err);
-			}
-
-			calback(results);
-	});
-}
-
 // get person
 exports.getPerson = function(id, calback) {
 	client.query("USE " + CONFIG.MYSQL.PERSON.DB);
@@ -132,8 +144,23 @@ exports.getPerson = function(id, calback) {
 	});
 }
 
-// Search query
-exports.getAll = function(calback) {
+// getAll page
+exports.getAll = function(page, calback) {
+	client.query("USE " + CONFIG.MYSQL.PERSON.DB);
+	client.query(
+		"SELECT * FROM `" + CONFIG.MYSQL.PERSON.TABLE + "` LIMIT " + CONFIG.MYSQL.PERSON.LIMIT 
+		, function(err, results, fields) {
+			for (x in results){
+				if (results[x].thumb){
+					results[x].thumb=results[x].thumb.replace("_40_50","");
+				}
+			}
+			calback(results);
+	});
+}
+
+// getAll random
+exports.getRandom = function(calback) {
 	client.query("USE " + CONFIG.MYSQL.PERSON.DB);
 	client.query(
 		"SELECT * FROM `" + CONFIG.MYSQL.PERSON.TABLE + "` ORDER BY rand() LIMIT " + CONFIG.MYSQL.PERSON.LIMIT 
@@ -146,6 +173,8 @@ exports.getAll = function(calback) {
 			calback(results);
 	});
 }
+
+
 
 // SQL
 exports.getSQL = function(use, sql, calback) {

@@ -54,6 +54,11 @@ app.configure('development', function(){
 	password: 'iQNy7IEYP/6zUvUW7yLZ5y7/hVyWHWeCdQWnkUoCiSA0tar8pLsy+uQXOQD+A5B74i+cAC107vFAO4VRGSmKyw=='
 } */
 
+app.locals = {
+	user : undefined,
+	view : undefined
+}
+
 // Guest auth
 function loadUser(req, res, next) {
 	res.locals.view = req.session.view;
@@ -73,6 +78,7 @@ function loadAdmin(req, res, next) {
 		res.locals.user = req.session.user;
 		next();
 	} else {
+		res.locals.user = undefined;
 		res.redirect('/login');
 	}
 };
@@ -81,7 +87,7 @@ app.get('/actor', loadUser, search.actor);
 
 // Page
 //app.get('/', loadUser, routes.index);
-app.get('/', loadUser, search.query);
+app.get('/', search.query);
 app.get('/link', loadUser, routes.iframe);
 app.get('/under', loadUser, routes.under);
 app.get('/scraper', loadAdmin, routes.scraper);
@@ -109,7 +115,7 @@ app.get('/logout', loadUser, auth.logout);
 // User
 app.get('/users', loadAdmin, auth.getUsers);
 app.get('/users/new', loadAdmin, auth.getNew);
-app.post('/users/new', loadAdmin, auth.postNew);
+app.post('/users/new', auth.postNew);
 app.get('/user/:id', loadAdmin, auth.getId);
 app.post('/user/:id', loadAdmin, auth.postId);
 app.post('/dropuser', loadAdmin, auth.postDropuser);
