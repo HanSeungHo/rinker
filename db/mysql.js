@@ -12,8 +12,8 @@ var page = function(page) {
 exports.getQuery = function(query, page, calback) {
 	var s,e;
 	if(page){
-		s=(CONFIG.MYSQL.PERSON.LIMIT*page)+1;
-		e=CONFIG.MYSQL.PERSON.LIMIT+s-1;
+		s=(CONFIG.MYSQL.PERSON.PAGE*page)+1;
+		e=CONFIG.MYSQL.PERSON.PAGE+s-1;
 	}else{
 		s=0;
 		e=CONFIG.MYSQL.PERSON.LIMIT;
@@ -27,11 +27,6 @@ exports.getQuery = function(query, page, calback) {
 					results[x].thumb=results[x].thumb.replace("_40_50","");
 				}
 			}  
-
-			if (err) {
-				console.log(err);
-			}
-
 			calback(results);
 	});
 }
@@ -103,11 +98,19 @@ exports.actor = function(query, calback) {
 	});
 }
 
-exports.getJob = function(job, calback) {
+exports.getJob = function(job, page, calback) {
+	var s,e;
+	if(page){
+		s=(CONFIG.MYSQL.PERSON.PAGE*page)+1;
+		e=CONFIG.MYSQL.PERSON.PAGE+s-1;
+	}else{
+		s=0;
+		e=CONFIG.MYSQL.PERSON.LIMIT;
+	}	
 	client.query("USE " + CONFIG.MYSQL.PERSON.DB); 
 	// SELECT * FROM `people` WHERE `job` LIKE  '%탤런트%' LIMIT 0,100
 	client.query(
-		"SELECT * FROM `" + CONFIG.MYSQL.PERSON.TABLE + "` WHERE `job` LIKE  '%" + job + "%' LIMIT 0, " + CONFIG.MYSQL.PERSON.LIMIT
+		"SELECT * FROM `" + CONFIG.MYSQL.PERSON.TABLE + "` WHERE `job` LIKE  '%" + job + "%' LIMIT " + s + "," + e
 		, function(err, results, fields) {
 			for (x in results){
 				if (results[x].thumb){

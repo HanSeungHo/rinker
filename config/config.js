@@ -16,7 +16,8 @@ exports.MYSQL = {
 	PERSON : {
 		DB    : 'repository',
 		TABLE : 'people',
-		LIMIT : 40
+		LIMIT : 40,
+		PAGE : 20
 	},
 	MUSIC : {
 		DB    : 'repository',

@@ -3,12 +3,12 @@ $(document).ready(function() {
 	var lastX = 0;
 	var currentX = 0;
 	var page = 1;
-	maxPages = 5;
+	maxPages = 10;
 
 	$(window).scroll(function () {
 		if (page < maxPages) {
 			currentX = $(window).scrollTop();
-			if (currentX - lastX > 1300 * page) {
+			if (currentX - lastX > 1000 * page) {
 				lastX = currentX;
 				page++;
 				socket.emit('get page', page);

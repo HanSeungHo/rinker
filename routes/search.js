@@ -39,7 +39,7 @@ exports.job = function(req, res){
 	var job = req.param('q');
 	
 	if(job){
-		mysql.getJob(job, function(rows) {
+		mysql.getJob(job, 0, function(rows) {
 				res.render('search', { 
 					title: 'Rinker - 소셜 그래프 인물검색',
 					query: job,
