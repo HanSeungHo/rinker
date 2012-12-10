@@ -27,7 +27,7 @@ block content
 				br					
 				b Console:
 				ul#console
-	script(src='http://localhost:3100/socket.io/socket.io.js')
+	script(src='#{ws})/socket.io/socket.io.js')
 	script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js')
 	script
 		var socket  = io.connect(#{ws});

@@ -87,7 +87,7 @@ app.get('/actor', loadUser, search.actor);
 
 // Page
 //app.get('/', loadUser, routes.index);
-app.get('/', search.query);
+app.get('/', loadUser, search.query);
 app.get('/link', loadUser, routes.iframe);
 app.get('/under', loadUser, routes.under);
 app.get('/scraper', loadAdmin, routes.scraper);

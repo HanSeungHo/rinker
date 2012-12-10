@@ -1,7 +1,7 @@
 // Websocket host
 exports.WS = {
-	HOST : 'http://localhost:3001',
-	SCRAPER : 'http://localhost:3100'
+	HOST : 'http://127.0.0.1:3001',
+	SCRAPER : 'http://127.0.0.1:3100'
 }
 
 // MySQL database
