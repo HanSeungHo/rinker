@@ -33,8 +33,21 @@ exports.query = function(req, res){
 	}
 };
 
+// Index
+exports.index = function(req, res){
+	mysql.getAll( 0, function(rows) {
+		res.render('search', { 
+			title: 'Rinker - 소셜 그래프 인물검색',
+			query: '전체',
+			rows: rows,
+			result: rows.length
+		});
+	});
+};
+
+
 // /search/job/:job
-exports.job = function(req, res){
+exports.job = function(req, res) {
 
 	var job = req.param('q');
 	
