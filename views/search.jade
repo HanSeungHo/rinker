@@ -13,14 +13,14 @@ block content
 		.row-fluid
 			.span12
 				h3.heading
-					| '#{query}' 검색 결과
+					| '#{query}' 검색 결과 
 					small  (  #{result} )
 				include tmeplate/person
 	include layout/sidebar
-	script(src='http://127.0.0.1:3001/socket.io/socket.io.js')
+	script(src='#{ws}/socket.io/socket.io.js')
 	script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js')
 	script
-		var socket  = io.connect('http://127.0.0.1:3001');
+		var socket  = io.connect('#{ws}');
 	script(src='/ws/page.js')	
 	//- script(src='/js/jquery.min.js')
 	//- // colorbox 

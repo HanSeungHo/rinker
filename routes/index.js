@@ -1,5 +1,3 @@
-var CONFIG = require('../config/config');
-
 exports.index = function(req, res){
 	res.render('index', { title: 'Rinker'});
 };
@@ -10,7 +8,7 @@ exports.iframe = function(req, res){
 };
 
 exports.scraper = function(req, res){
-	res.render('admin/scrap', { title: 'Rinker', ws: CONFIG.WS.SCRAPER });
+	res.render('admin/scrap', { title: 'Rinker' });
 };
 
 exports.under = function(req, res){

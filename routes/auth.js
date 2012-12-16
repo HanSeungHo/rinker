@@ -45,7 +45,7 @@ exports.postLogin = function(req, res) {
         }
       });
     } else {
-      req.flash('info', err.message)
+      req.flash('info', "가입되지 않은 아이디 입니다.");
       return res.redirect('/login');
     }
   });
@@ -58,6 +58,7 @@ exports.logout = function(req, res) {
     name = req.session.user.name;
     delete req.session.user;
     delete req.session.success;
+    delete req.session.level;
     console.log(name + ' logout.');
   }
   return res.redirect(req.header('Referrer'));

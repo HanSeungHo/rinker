@@ -13,11 +13,11 @@ console.log('++ Database mynode_db is created.');
 
 // Create table
 var sql = ""+
-"create table employees("+
-" id int unsigned not null auto_increment,"+
-" name varchar(50) not null default 'unknown',"+
-" salary dec(10,2) not null default 100000.00,"+
-" primary key (id)"+
+"create table employees(" +
+" id int unsigned not null auto_increment," +
+" name varchar(50) not null default 'unknown'," +
+" salary dec(10,2) not null default 100000.00," +
+" primary key (id)" +
 ");";
 
 client.query(sql, function(err) {

@@ -5,7 +5,7 @@ block content
 		.main_content
 			.row-fluid
 
-				b people.nate.com list scrap
+				b people.nate.com 인물 목록 수집
 				div
 					| Start:
 					input#nate_listStart(type='text', value='')
@@ -15,7 +15,7 @@ block content
 				div
 					input#nate_listScrap(type='button', value='리스트 수집')
 				br
-				b people.nate.com person scrap
+				b people.nate.com 인물 정보 수집
 				div
 					| Start:
 					input#nate_personStart(type='text', value='')
@@ -27,9 +27,9 @@ block content
 				br					
 				b Console:
 				ul#console
-	script(src='#{ws})/socket.io/socket.io.js')
+	script(src='#{scraper}/socket.io/socket.io.js')
 	script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js')
 	script
-		var socket  = io.connect(#{ws});
+		var socket  = io.connect('#{scraper}');
 	script(src='/ws/scraper.js')
 	include ../layout/sidebar

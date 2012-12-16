@@ -1,40 +1,44 @@
 var logo = '\n'
-+'================================================================\n\n'
-+'        OOOOOO,   OO~            OO                             \n'
-+'        OO   OOO  OO~            OO                             \n'
-+'        OO    OO                 OO                  ,OOO,      \n'
-+'        OO    OO  OO~  OOOOOOO   OO  ,O,  OOOOOO   O~OO OOO     \n'
-+'        OO   ,OO  OO~  OO   OO.  OO .O,  ,OO   OO  OO           \n'
-+'        OOOOOOO   OO~  OO   OO.  OO O,   OO    OO  OO           \n'
-+'        OO  OO.   OO~  OO   OO.  OOOO.   OOOOOOOO  OO           \n'
-+'        OO  .OO   OO~  OO   OO.  OO OO   OO        OO           \n'
-+'        OO   OO,  OO~  OO   OO.  OO  OO  OO.       OO           \n'
-+'        OO   .OO  OO~  OO   OO.  OO  OOO  OO  OO,  OO           \n'
-+'        OO    OOO OO~  OO   OO.  OO   OO   OOOO    OO           \n\n'
-+'----------------------------------------------------------------\n'
-+'          AMI TEAM PROJECT : ENTERTAINMENT SEARCH SERVICE       \n'
-+'================================================================\n\n';
++ '================================================================\n\n'
++ '        OOOOOO,   OO~            OO                             \n'
++ '        OO   OOO  OO~            OO                             \n'
++ '        OO    OO                 OO                  ,OOO,      \n'
++ '        OO    OO  OO~  OOOOOOO   OO  ,O,  OOOOOO   O~OO OOO     \n'
++ '        OO   ,OO  OO~  OO   OO.  OO .O,  ,OO   OO  OO           \n'
++ '        OOOOOOO   OO~  OO   OO.  OO O,   OO    OO  OO           \n'
++ '        OO  OO.   OO~  OO   OO.  OOOO.   OOOOOOOO  OO           \n'
++ '        OO  .OO   OO~  OO   OO.  OO OO   OO        OO           \n'
++ '        OO   OO,  OO~  OO   OO.  OO  OO  OO.       OO           \n'
++ '        OO   .OO  OO~  OO   OO.  OO  OOO  OO  OO,  OO           \n'
++ '        OO    OOO OO~  OO   OO.  OO   OO   OOOO    OO           \n\n'
++ '----------------------------------------------------------------\n'
++ '          AMI TEAM PROJECT : ENTERTAINMENT SEARCH SERVICE       \n'
++ '================================================================\n\n';
 
 // Modules require
-var express = require('express')
-	, routes = require('./routes')
-	, search = require('./routes/search')
-	, graph = require('./routes/graph')
-	, auth = require('./routes/auth')
-	, http = require('http')
-	, flash = require('connect-flash')
-	, path = require('path');
+var express = require('express'),
+		CONFIG = require('./config/config'),
+		network = require('./lib/network'),
+		routes = require('./routes'),
+		search = require('./routes/search'),
+		graph = require('./routes/graph'),
+		auth = require('./routes/auth'),
+		http = require('http'),
+		flash = require('connect-flash'),
+		path = require('path');
 
 var app = express();
 
 // Express configure
-app.configure(function(){
-	app.set('port', process.env.PORT || 3000);
+app.configure(function() {
+	app.set('port', process.env.PORT || CONFIG.ARGV.PORT);
 	app.set('views', __dirname + '/views');
 	app.set('view engine', 'jade');
 	app.use(express.favicon());
 	app.use(express.logger('dev'));
 	app.use(express.bodyParser());
+	//gzip compress
+	app.use(express.compress());
 	app.use(express.methodOverride());  
 	app.use(express.cookieParser('Rinker session'));
 	app.use(flash());
@@ -43,7 +47,7 @@ app.configure(function(){
 	app.use(express.static(path.join(__dirname, 'public')));
 });
 
-app.configure('development', function(){
+app.configure('development', function() {
 	app.use(express.errorHandler());
 });
 
@@ -56,7 +60,9 @@ app.configure('development', function(){
 
 app.locals = {
 	user : undefined,
-	view : undefined
+	view : undefined,
+	ws : "http://" + CONFIG.ARGV.WS.HOST + ':' + CONFIG.ARGV.WS.PORT,
+	scraper : "http://" + CONFIG.ARGV.SCRAPER.HOST + ':' + CONFIG.ARGV.SCRAPER.PORT
 }
 
 // Guest auth
@@ -66,7 +72,6 @@ function loadUser(req, res, next) {
 		res.locals.user = req.session.user;
 		next();
 	} else {
-		res.locals.user = undefined;
 		next();
 	}
 };
@@ -75,10 +80,14 @@ function loadUser(req, res, next) {
 function loadAdmin(req, res, next) {
 	res.locals.view = req.session.view;
 	if (req.session.user) {
-		res.locals.user = req.session.user;
-		next();
+		if (req.session.user.level=="admin") {
+			next();
+		}
+		res.locals.user = req.session.user;		
+		req.flash('info', "관리자가 아닙니다.");
+		res.redirect('/login');
 	} else {
-		res.locals.user = undefined;
+		req.flash('info', "가입되지 않은 아이디 입니다.");
 		res.redirect('/login');
 	}
 };
@@ -133,8 +142,5 @@ app.post('/graph/:id/unfollow', loadAdmin, graph.unfollow);
 
 // Create server
 http.createServer(app).listen(app.get('port'), function(){
-	console.log(logo,"Rinker server listening on port", app.get('port'));
+	console.log(logo,"++ Rinker: server listening on port", app.get('port'));
 });
-
-// Websocket, Socket server
-var net = require('./network');
