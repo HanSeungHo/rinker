@@ -38,7 +38,7 @@ app.configure(function() {
 	app.use(express.logger('dev'));
 	app.use(express.bodyParser());
 	//gzip compress
-	app.use(express.compress());
+	//app.use(express.compress());
 	app.use(express.methodOverride());  
 	app.use(express.cookieParser('Rinker session'));
 	app.use(flash());
@@ -57,7 +57,6 @@ app.configure('development', function() {
 	email: 'penguns@naver.com',
 	password: 'iQNy7IEYP/6zUvUW7yLZ5y7/hVyWHWeCdQWnkUoCiSA0tar8pLsy+uQXOQD+A5B74i+cAC107vFAO4VRGSmKyw=='
 } */
-
 app.locals = {
 	user : undefined,
 	view : undefined,
