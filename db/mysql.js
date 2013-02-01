@@ -55,7 +55,7 @@ exports.getPersonCount = function(callback) {
 // test websocket
 exports.add_employee = function(data, callback) {
  client.query('USE mynode_db');
- client.query("insert into employees (name, salary) values (?,?)", [data.name, data.salary], function(err, info) {
+ client.query("INSERT INTO employees (name, salary) VALUES (?,?)", [data.name, data.salary], function(err, info) {
 		callback(info.insertId);
 		console.log('+ QUERY LOG : '+data.name+', '+data.salary); 
 	});
@@ -63,8 +63,10 @@ exports.add_employee = function(data, callback) {
 
 exports.logQuery = function(data) {
  client.query('USE '+ CONFIG.MYSQL.QUERY.DB);
- client.query("INSERT INTO " + CONFIG.MYSQL.QUERY.TABLE + " (query) VALUES (?)", [data], function(err, info) {
+
+ client.query("INSERT INTO " + CONFIG.MYSQL.QUERY.TABLE + " (query) VALUES ('" + data + "')", function(err, info) {
 		console.log('+ LOG search query : ', data); 
+		console.log(err);
 	});
 }
 

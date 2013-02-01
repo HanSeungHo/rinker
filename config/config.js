@@ -59,7 +59,7 @@ var MYSQL = {
 	},
 	QUERY : {
 		DB 		: 'log',
-		TABLE : 'query'
+		TABLE : 'search'
 	}
 };
 
