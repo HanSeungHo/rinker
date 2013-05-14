@@ -34,7 +34,7 @@ var MYSQL = {
 		host : 'ami.hansh.kr',
 		port : '3406',
 		user : 'test',
-		password : 'ttest',
+		password : 'test',
 		debug : false
 	},
 	PERSON : {
